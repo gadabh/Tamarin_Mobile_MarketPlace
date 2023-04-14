@@ -4,7 +4,7 @@ import 'package:mobile_v3/consts/consts.dart';
 
 
 
-Widget costumTextField({String? title ,  String? hint , controller}){
+Widget costumTextField({String? title , required String? hint , controller}){
 
 
   return Column(
@@ -13,19 +13,19 @@ Widget costumTextField({String? title ,  String? hint , controller}){
       title!.text.color(redColor).fontFamily(semibold).size(16).make(),
       5.heightBox,
       TextFormField(
-        controller: controller,
-        decoration:  const InputDecoration(
-          hintStyle: TextStyle(
+       // controller: controller,
+        decoration:   InputDecoration(
+          hintStyle: const TextStyle(
             fontFamily: semibold,
             color: textfieldGrey,
           ),
-         //hintText: hint,
+          hintText: hint,
           isDense: true,
           fillColor: lightGrey,
 
           filled: true,
           border: InputBorder.none,
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             borderSide:
               BorderSide(color: redColor)
           ),

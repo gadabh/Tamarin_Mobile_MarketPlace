@@ -13,6 +13,7 @@ const privacyPolicy="Privacy Policy";
 const termAndCond ="Terms and Conditions";
 const forgetPass ="Forget Password";
 const login ="Log in";
+const logout ="Log out";
 const signup =" Sign up ";
 const createNewAccount =" or, create a new account";
 const loginWith = " Log in with" ;
@@ -58,6 +59,10 @@ const   reviews="reviews",
     sellerpolicy ="Seller Policy",
     assetyoumaylike ="Asset You May Also Like" ,
     supportpolicy="Support Policy";
+
+
+//Profile strings
+const  wishlist = "My Wishlist" , orders ="My Orders" , message ="Messages" ;
 
 
 

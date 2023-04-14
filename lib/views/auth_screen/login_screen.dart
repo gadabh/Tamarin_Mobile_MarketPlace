@@ -28,8 +28,8 @@ class LoginScreen extends StatelessWidget {
             15.heightBox,
             Column(
               children: [
-                costumTextField( title: email, hint: emailHint),
-                costumTextField( title:  password , hint: passwordHint),
+                costumTextField( hint: emailHint ,title: email, ),
+                costumTextField(  hint: passwordHint ,title:  password ,),
 
                 Align(
                     alignment: Alignment.centerRight,

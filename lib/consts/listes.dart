@@ -59,3 +59,11 @@ const itemDetailsListe =[
 ];
 
 
+const profileButtonList =[
+  orders , wishlist , message
+];
+
+const profileButtonIcon =[
+  icOrder , icOrder , icMessages
+];
+
