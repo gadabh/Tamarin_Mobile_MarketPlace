@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:mobile_v3/views/category_screen/item_details.dart';
 import 'package:mobile_v3/widgets_common/bg_widget.dart';
 import 'package:mobile_v3/consts/consts.dart';
 
@@ -64,7 +67,10 @@ class CategoryDetails extends StatelessWidget {
 
 
                                     ],
-                                  ).box.white.roundedSM.outerShadowSm.margin(const EdgeInsets.symmetric(horizontal: 4)).padding(const EdgeInsets.all(12)).make();
+                                  ).box.white.roundedSM.outerShadowSm.margin(const EdgeInsets.symmetric(horizontal: 4))
+                                      .padding(const EdgeInsets.all(12)).make().onTap(() { 
+                                        Get.to(()=>ItemDetails(title: "exemple of one asset "));
+                                  });
 
                                 }
                       ,

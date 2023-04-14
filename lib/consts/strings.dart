@@ -53,3 +53,12 @@ const   troisD="3D",
 
 
 
+//Item Details strings
+const   reviews="reviews",
+    sellerpolicy ="Seller Policy",
+    assetyoumaylike ="Asset You May Also Like" ,
+    supportpolicy="Support Policy";
+
+
+
+
