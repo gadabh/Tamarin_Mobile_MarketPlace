@@ -6,9 +6,10 @@ import 'package:mobile_v3/consts/consts.dart';
 
 
 
-Widget bgWidget({Widget? child}){
+Widget bgAuthWidget({Widget? child}){
   return Container(
-    decoration: const BoxDecoration(image: DecorationImage(image: AssetImage(imgBackground),fit: BoxFit.fill
+
+    decoration: const BoxDecoration(image: DecorationImage(image: AssetImage(imgAuthBackground),fit: BoxFit.fill
     )),
     child: child,
   );

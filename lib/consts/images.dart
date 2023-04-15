@@ -1,6 +1,6 @@
 //icons
 const icAdd = "assets/icons/add.png";
-const icAppLogo = "assets/icons/app_logo.png";
+const icAppLogo = "assets/logo.gif";
 const icAppleLogo = "assets/icons/apple_logo.png";
 const icArrow = "assets/icons/arrow.png";
 const icBell = "assets/icons/bell.png";
@@ -52,6 +52,7 @@ const icWholeSale = "assets/icons/wholesale.png";
 //images
 
 const imgBackground = "assets/icons/bg.png";
+const imgAuthBackground = "assets/icons/bg.jpeg";
 
 const imgB1 = "assets/images/b1.jpeg";
 const imgB2 = "assets/images/b2.jpeg";

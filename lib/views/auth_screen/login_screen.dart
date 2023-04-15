@@ -7,7 +7,7 @@ import 'package:mobile_v3/views/home_screen/home.dart';
 import 'package:mobile_v3/widgets_common/appLogo_widget.dart';
 import 'package:mobile_v3/widgets_common/our_buttom.dart';
 
-import '../../widgets_common/bg_widget.dart';
+import '../../widgets_common/bg_auth_widget.dart';
 import '../../widgets_common/custom_textfield.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return bgWidget(
+    return bgAuthWidget(
         child:Scaffold(
           resizeToAvoidBottomInset: false,
          body: Center(
@@ -23,11 +23,13 @@ class LoginScreen extends StatelessWidget {
           children: [
             (context.screenHeight * 0.1).heightBox,
             appLogoWidget(),
-            10.heightBox,
-            "Log in to $appname".text.fontFamily(bold).white.size(22).make(),
-            15.heightBox,
+
+
             Column(
               children: [
+                10.heightBox,
+                "Log in to $appname".text.fontFamily(bold).color(redColor).size(22).make(),
+                60.heightBox,
                 costumTextField( hint: emailHint ,title: email, ),
                 costumTextField(  hint: passwordHint ,title:  password ,),
 
@@ -45,7 +47,7 @@ class LoginScreen extends StatelessWidget {
 
                     }
                 ).box.width(context.screenWidth -50).make(),
-                5.heightBox,
+                30.heightBox,
                 createNewAccount.text.color(fontGrey).make(),
                 5.heightBox,
                 ourButtom(
@@ -58,7 +60,7 @@ class LoginScreen extends StatelessWidget {
 
                         }
                 ).box.width(context.screenWidth -50).make(),
-                10.heightBox,
+                40.heightBox,
                 loginWith.text.color(fontGrey).make(),
                 5.heightBox,
                 Row(

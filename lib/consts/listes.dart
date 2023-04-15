@@ -33,9 +33,11 @@ const featuredTitles2 =[FastFood,Cakes,junkFood] ;
 
 //categories
 const  categoriesListe =[troisD, dsMaxModels , maya , melangeurs , fbx  , OBJ  , unite , omnivers  ,
+
 Animes ,
 lowpoly  ,
-irreels
+irreels ,
+  troisD
 ];
 const categoryImages =[
   imgFc1,
@@ -49,6 +51,7 @@ const categoryImages =[
   imgFc9,
   imgFc10,
   imgFc11,
+  imgFc1,
 ];
 
 

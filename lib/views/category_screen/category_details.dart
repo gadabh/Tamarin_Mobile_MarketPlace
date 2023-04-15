@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mobile_v3/views/category_screen/item_details.dart';
-import 'package:mobile_v3/widgets_common/bg_widget.dart';
 import 'package:mobile_v3/consts/consts.dart';
+
+import '../../widgets_common/bg_auth_widget.dart';
 
 class CategoryDetails extends StatelessWidget {
   final String? title ;
@@ -12,13 +13,10 @@ class CategoryDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return bgWidget(
-
-
-
+    return bgAuthWidget(
            child: Scaffold(
               appBar: AppBar(
-                title: title!.text.fontFamily(bold).white.make(),
+                title: title!.text.fontFamily(bold).color(darkFontGrey).make(),
      
               ),
               body: Container(

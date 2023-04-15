@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mobile_v3/consts/consts.dart';
-import 'package:mobile_v3/consts/listes.dart';
 import 'package:mobile_v3/views/auth_screen/login_screen.dart';
 import 'package:mobile_v3/widgets_common/appLogo_widget.dart';
 import 'package:mobile_v3/widgets_common/our_buttom.dart';
-
-import '../../widgets_common/bg_widget.dart';
+import '../../widgets_common/bg_auth_widget.dart';
 import '../../widgets_common/custom_textfield.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -22,7 +20,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return bgWidget(
+    return bgAuthWidget(
         child:Scaffold(
           resizeToAvoidBottomInset: false,
           body: Center(
@@ -31,7 +29,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 (context.screenHeight * 0.1).heightBox,
                 appLogoWidget(),
                 10.heightBox,
-                "Join the  $appname".text.fontFamily(bold).white.size(22).make(),
+                "Join the  $appname".text.fontFamily(bold).color(redColor).size(22).make(),
                 15.heightBox,
                 Column(
                   children: [

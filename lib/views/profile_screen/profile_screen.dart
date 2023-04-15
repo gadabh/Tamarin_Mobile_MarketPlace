@@ -7,14 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:mobile_v3/consts/consts.dart';
 import 'package:mobile_v3/consts/listes.dart';
 import 'package:mobile_v3/views/profile_screen/components/details_card.dart';
-import 'package:mobile_v3/widgets_common/bg_widget.dart';
+
+import '../../widgets_common/bg_auth_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return  bgWidget(
+    return  bgAuthWidget(
       child:  Scaffold(
         body: SafeArea(
 
@@ -28,7 +29,7 @@ class ProfileScreen extends StatelessWidget {
                       topRight,
                       child: Icon(
                           Icons.edit ,
-                          color: whiteColor
+                          color: darkFontGrey
                       )).onTap(() { }),
                 ),
 
@@ -46,19 +47,19 @@ class ProfileScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        "User Name".text.fontFamily(semibold).white.make(),
+                        "User Name".text.fontFamily(semibold).color(darkFontGrey).make(),
                         5.heightBox,
-                        "customer@expl.com".text.white.make(),
+                        "customer@expl.com".text.color(darkFontGrey).make(),
                     ],
                   )),
                     OutlinedButton(
                       style: OutlinedButton.styleFrom(
                         side: const BorderSide(
-                          color: whiteColor,
+                          color: darkFontGrey,
                         )
                       ),
                         onPressed: (){}, child:
-                        logout.text.fontFamily(semibold).white.make()
+                        logout.text.fontFamily(semibold).color(darkFontGrey).make()
                     )
 
                   ],
@@ -105,7 +106,7 @@ class ProfileScreen extends StatelessWidget {
                       const EdgeInsets
                         .symmetric(horizontal: 16))
                 
-                    .shadowSm.make().box.color(redColor).make()
+                    .shadowSm.make()
 
 
 

@@ -1,9 +1,8 @@
+
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mobile_v3/consts/consts.dart';
 import 'package:mobile_v3/views/auth_screen/login_screen.dart';
-import 'package:mobile_v3/widgets_common/appLogo_widget.dart';
-import 'package:velocity_x/velocity_x.dart';
-
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -13,7 +12,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
+  @override
 
   //method to change screen
   changeScreen(){
@@ -31,33 +30,54 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
 
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.red,
-      body: Center(
-        child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                 child:Image.asset(icSplashBg ,width: 300),
+    return
+        Scaffold(
+          backgroundColor: Colors.white,
+          body: Container(
+            alignment: Alignment.center,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+             children: [
+               300.heightBox,
+               appname.text.color(Colors.black).fontFamily(bold).size(22).make(),
+
+               SizedBox(height: 300,width: 300,
+                 child:Lottie.asset('assets/b.json') ,
+               ),
+          //     appversion.text.make(),
+               const Spacer(),
+               credits.text.fontFamily(semibold).make(),
+
+             ],
+
+            ),
+          ),
+        );
 
 
-                 ),  20.heightBox,
-                appLogoWidget(),
-                10.heightBox,
-                appname.text.fontFamily(bold).size(22).white.make(),
-                5.heightBox,
-                appversion.text.white.make(),
-                const Spacer(),
-                credits.text.white.fontFamily(semibold).make(),
-                30.heightBox,
-              ],
 
 
-        ),
-      ),
-    );
+
+  /*
+      MaterialApp(
+
+
+          title: 'Flutter Demo',
+          home:  AnimatedSplashScreen(
+              splash: Lottie.asset('assets/b.json'),
+              splashIconSize: 250,
+              backgroundColor: Colors.black,
+              pageTransitionType: PageTransitionType.rightToLeftWithFade,
+              nextScreen: const LoginScreen())
+
+      );
+
+*/
+
+
+
+
   }
 }
