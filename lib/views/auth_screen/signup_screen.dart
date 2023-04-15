@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mobile_v3/consts/consts.dart';
+import 'package:mobile_v3/controllers/auth_controller.dart';
 import 'package:mobile_v3/views/auth_screen/login_screen.dart';
+import 'package:mobile_v3/views/home_screen/home.dart';
 import 'package:mobile_v3/widgets_common/appLogo_widget.dart';
 import 'package:mobile_v3/widgets_common/our_buttom.dart';
 import '../../widgets_common/bg_auth_widget.dart';
@@ -17,6 +19,17 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   bool? isCheck =false ;
+  var controller = Get.put(AuthController());
+
+
+  //text controllers
+  var nameController = TextEditingController();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  var passwordRetypeController = TextEditingController();
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +46,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 15.heightBox,
                 Column(
                   children: [
-                    costumTextField( title: name, hint: nameHint),
-                    costumTextField( title: email, hint: emailHint),
-                    costumTextField( title:  password , hint: passwordHint),
-                    costumTextField( title:  retypePassword , hint: passwordHint),
+                    costumTextField( title: name, hint: nameHint , controller: nameController , isPass :false),
+                    costumTextField( title: email, hint: emailHint ,controller: emailController , isPass : false),
+                    costumTextField( title:  password , hint: passwordHint , controller: passwordController , isPass: true ),
+                    costumTextField( title:  retypePassword , hint: passwordHint , controller: passwordRetypeController , isPass: true),
 
 
                     Align(
@@ -101,7 +114,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         color: isCheck==true ? redColor  : lightGrey,
                         title: signup ,
                         textColor: whiteColor,
-                        onPress: (){}
+                        onPress: () async {
+                           if (isCheck != false ){
+                             try{
+                               await controller.signupMethod(
+                                   context: context , 
+                                   email: emailController.text , 
+                                   password: passwordController.text).then((value)  {
+                                     return controller.storeUserData(
+                                       email: emailController.text ,
+                                       name: nameController.text,
+                                       password : passwordController.text,
+                                     ) ;
+                               }).then((value) {
+                                 VxToast.show(context, msg: "Logged In Successful");
+                                 Get.offAll(()=>const Home());
+                               });
+
+                             }catch(e){
+                               auth.signOut();
+                               VxToast.show(context, msg: e.toString());
+
+
+                             }
+                           }
+                        }
                     ).box.width(context.screenWidth -50).make(),
                     10.heightBox,
                     RichText(
@@ -143,3 +180,4 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ));
   }
 }
+

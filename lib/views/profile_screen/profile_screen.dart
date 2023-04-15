@@ -4,11 +4,15 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mobile_v3/consts/consts.dart';
 import 'package:mobile_v3/consts/listes.dart';
+import 'package:mobile_v3/controllers/auth_controller.dart';
 import 'package:mobile_v3/views/profile_screen/components/details_card.dart';
 
 import '../../widgets_common/bg_auth_widget.dart';
+import '../auth_screen/login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -58,7 +62,11 @@ class ProfileScreen extends StatelessWidget {
                           color: darkFontGrey,
                         )
                       ),
-                        onPressed: (){}, child:
+                        onPressed: ()async{
+                        await Get.put(AuthController()).signoutMethod(context);
+                        Get.offAll(()=> const LoginScreen());
+
+                        }, child:
                         logout.text.fontFamily(semibold).color(darkFontGrey).make()
                     )
 
