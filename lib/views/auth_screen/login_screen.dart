@@ -54,14 +54,14 @@ class LoginScreen extends StatelessWidget {
                               context: context ,
                             ).then((value)  {
                               if ( value != null ){
-                                VxToast.show(context, msg: "Logged In Successful");
+                               // VxToast.show(context, msg: "Logged In Successful");
                                 Get.offAll(()=>const Home());
 
                               } else{
                                 controller.isLoading(false);
                               }
                             }).then((value) {
-                              VxToast.show(context, msg: "Logged In Successful");
+                            //  VxToast.show(context, msg: "Logged In Successful");
                               Get.offAll(()=>const Home());
                             });
 

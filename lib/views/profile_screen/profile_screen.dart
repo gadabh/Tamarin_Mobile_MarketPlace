@@ -76,9 +76,9 @@ class ProfileScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  "User Name".text.fontFamily(semibold).color(darkFontGrey).make(),
+                                 "${data['name']}".text.fontFamily(semibold).color(darkFontGrey).make(),
                                   5.heightBox,
-                                  "customer@expl.com".text.color(darkFontGrey).make(),
+                                "${data['email']}".text.color(darkFontGrey).make(),
                                 ],
                               )),
                           OutlinedButton(
@@ -104,9 +104,9 @@ class ProfileScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        detailsCard(count: "00" , title: "in your cart", width: context.screenWidth/3.4),
-                        detailsCard(count: "32" , title: "in your Wishliste", width: context.screenWidth/3.4),
-                        detailsCard(count: "675" , title: "your order", width: context.screenWidth/3.4),
+                        detailsCard(count: data['cart_count'], title: "in your cart", width: context.screenWidth/3.4),
+                        detailsCard(count: data['wishlist_count'], title: "in your Wishliste", width: context.screenWidth/3.4),
+                        detailsCard(count: data['order_count'] , title: "your order", width: context.screenWidth/3.4),
 
                       ],
                     ),
