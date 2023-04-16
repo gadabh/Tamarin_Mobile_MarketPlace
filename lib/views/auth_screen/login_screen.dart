@@ -17,9 +17,10 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(AuthController());
-    return bgAuthWidget(
-        child:Scaffold(
-          resizeToAvoidBottomInset: false,
+    return Scaffold(
+        backgroundColor: Colors.white,
+
+        resizeToAvoidBottomInset: false,
          body: Center(
           child: Column(
           children: [
@@ -32,39 +33,51 @@ class LoginScreen extends StatelessWidget {
                 10.heightBox,
                 "Log in to $appname".text.fontFamily(bold).color(redColor).size(22).make(),
                 60.heightBox,
-                costumTextField( hint: emailHint ,title: email, isPass: false , controller:  controller.emailController),
-                costumTextField(  hint: passwordHint ,title:  password , isPass: true , controller: controller.passwordController
-                ),
-
-                Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(onPressed: (){}, child: forgetPass.text.make()))   ,
-                    5.heightBox,
-
-                ourButtom(
-                    color: redColor ,
-                    title: login ,
-                    textColor: whiteColor,
-                    onPress: () async {
-
-
-                          await controller.loginMethod(
+                Obx(()=>
+                   Column(
+                    children: [
+                      costumTextField( hint: emailHint ,title: email, isPass: false , controller:  controller.emailController),
+                      costumTextField(  hint: passwordHint ,title:  password , isPass: true , controller: controller.passwordController),
+                      Align(
+                          alignment: Alignment.centerRight,
+                          child: TextButton(onPressed: (){}, child: forgetPass.text.make()))   ,
+                      5.heightBox,
+                      controller.isLoading.value? const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(redColor),
+                      ) : ourButtom(
+                          color: redColor ,
+                          title: login ,
+                          textColor: whiteColor,
+                          onPress: () async {
+                            controller.isLoading(true);
+                            await controller.loginMethod(
                               context: context ,
-                             ).then((value)  {
+                            ).then((value)  {
                               if ( value != null ){
                                 VxToast.show(context, msg: "Logged In Successful");
                                 Get.offAll(()=>const Home());
 
+                              } else{
+                                controller.isLoading(false);
                               }
-                          }).then((value) {
-                            VxToast.show(context, msg: "Logged In Successful");
-                            Get.offAll(()=>const Home());
-                          });
+                            }).then((value) {
+                              VxToast.show(context, msg: "Logged In Successful");
+                              Get.offAll(()=>const Home());
+                            });
 
 
-                    }
-                ).box.width(context.screenWidth -50).make(),
-                30.heightBox,
+                          }
+                      ).box.width(context.screenWidth -50).make(),
+                      30.heightBox,
+
+                  ],
+                  ),
+                ),
+               
+
+
+
+
                 createNewAccount.text.color(fontGrey).make(),
                 5.heightBox,
                 ourButtom(
@@ -98,9 +111,11 @@ class LoginScreen extends StatelessWidget {
 
               ],
             ).box.white.rounded.padding(const EdgeInsets.all(16) ).width(context.screenWidth- 70).make()
+
+
           ],
         ),
-      ),
+
     ));
   }
 }

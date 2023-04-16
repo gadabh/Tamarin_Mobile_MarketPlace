@@ -19,13 +19,13 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return
       Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white
           ,
           title: categories.text.color(darkFontGrey).fontFamily(bold).make(),
         ),
-        body: bgAuthWidget(
-          child : Container(
+        body:  Container(
             padding: EdgeInsets.all(1),
 
             child: GridView.builder(
@@ -65,7 +65,7 @@ class CategoryScreen extends StatelessWidget {
 
             ),
           ),
-        ) ,
+
 
     );
   }

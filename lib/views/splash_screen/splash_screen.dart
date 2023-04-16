@@ -1,8 +1,13 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mobile_v3/consts/consts.dart';
 import 'package:mobile_v3/views/auth_screen/login_screen.dart';
+
+import '../home_screen/home.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -12,14 +17,17 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
-
   //method to change screen
   changeScreen(){
     Future.delayed(const Duration(seconds: 3),() async {
       //using getX
-      await Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
+     auth.authStateChanges().listen((User? user) {
+       if(user ==null && mounted){
+         Get.to(()=>const LoginScreen());
+       }else {
+         Get.to(()=>const Home());
+       }
+     });
 
     });
   }
