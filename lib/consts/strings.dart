@@ -62,7 +62,7 @@ const   reviews="reviews",
 
 
 //Profile strings
-const  wishlist = "My Wishlist" , orders ="My Orders" , message ="Messages" ;
+const  wishlist = "My Wishlist" , orders ="My Orders" , message ="Messages", oldpass="Old password" , newpass="New password" ;
 
 
 
