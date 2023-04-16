@@ -15,7 +15,6 @@ import 'package:mobile_v3/services/firestore_services.dart';
 import 'package:mobile_v3/views/profile_screen/components/details_card.dart';
 import 'package:mobile_v3/views/profile_screen/edit_profile_screen.dart';
 
-import '../../widgets_common/bg_auth_widget.dart';
 import '../auth_screen/login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -58,7 +57,9 @@ class ProfileScreen extends StatelessWidget {
                               Icons.edit ,
                               color: darkFontGrey
                           )).onTap(() {
-                        Get.to(()=> const EditProfileScreen());
+                        controller.nameController.text=data['name'];
+                        controller.passController.text=data['password'];
+                        Get.to(()=>  EditProfileScreen(data: data,));
                       }),
                     ),
 
@@ -70,8 +71,12 @@ class ProfileScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Row(
                         children: [
-                          Image.asset(imgProfile2,width: 130,fit: BoxFit.cover,).box.roundedFull.clip(Clip.antiAlias).make(),
-                          10.heightBox,
+                          data['photo'] == '' ?
+                          Image.asset(imgProfile2,width: 130,fit: BoxFit.cover,).box.roundedFull.clip(Clip.antiAlias).make()
+                         :
+                      Image.network(data['photo'],width: 130,fit: BoxFit.cover,).box.roundedFull.clip(Clip.antiAlias).make(),
+
+                    10.heightBox,
                           Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -8,7 +8,6 @@ import 'package:mobile_v3/views/home_screen/home.dart';
 import 'package:mobile_v3/widgets_common/appLogo_widget.dart';
 import 'package:mobile_v3/widgets_common/our_buttom.dart';
 
-import '../../widgets_common/bg_auth_widget.dart';
 import '../../widgets_common/custom_textfield.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -54,14 +53,14 @@ class LoginScreen extends StatelessWidget {
                               context: context ,
                             ).then((value)  {
                               if ( value != null ){
-                               // VxToast.show(context, msg: "Logged In Successful");
+                               VxToast.show(context, msg: "Logged In Successful");
                                 Get.offAll(()=>const Home());
 
                               } else{
                                 controller.isLoading(false);
                               }
                             }).then((value) {
-                            //  VxToast.show(context, msg: "Logged In Successful");
+                            VxToast.show(context, msg: "Logged In Successful");
                               Get.offAll(()=>const Home());
                             });
 
