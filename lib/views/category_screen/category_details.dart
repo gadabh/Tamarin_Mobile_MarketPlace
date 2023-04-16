@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:mobile_v3/controllers/asset_controller.dart';
 import 'package:mobile_v3/views/category_screen/item_details.dart';
 import 'package:mobile_v3/consts/consts.dart';
 
@@ -13,8 +14,10 @@ class CategoryDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return bgAuthWidget(
-           child: Scaffold(
+    var controller =Get.find<AssetController>();
+
+    return Scaffold(
+      backgroundColor: lightGrey,
               appBar: AppBar(
                 title: title!.text.fontFamily(bold).color(darkFontGrey).make(),
      
@@ -28,8 +31,8 @@ class CategoryDetails extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children:
-                          List.generate(6,
-                                  (index) =>"Asset...".
+                          List.generate(controller.subcat.length,
+                                  (index) =>"${controller.subcat[index]}".
                                        text
                                       .size(12)
                                       .fontFamily(semibold)
@@ -76,7 +79,7 @@ class CategoryDetails extends StatelessWidget {
                   ],
                 ),
               ),
-            )
+
          );
   }
 }
