@@ -12,7 +12,9 @@ import 'package:mobile_v3/widgets_common/our_buttom.dart';
 
 class ItemDetails extends StatelessWidget {
   final String? title ;
-  const ItemDetails({Key? key ,required this.title}) : super(key: key);
+  final dynamic data ;
+  const ItemDetails({Key? key ,required this.title , this.data}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,20 +38,30 @@ class ItemDetails extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   //swiper section
-                  VxSwiper.builder(itemCount: 3,autoPlay: true,height: 350,aspectRatio: 16/9 , itemBuilder: (context,index){
-                    return Image.asset(imgP1,width: double.infinity,fit : BoxFit.cover,);
+                  VxSwiper.builder(
+                      itemCount: data['imageURL'].length,
+                      autoPlay: true,
+                      height: 350,
+                      viewportFraction : 1.0 ,
+                      aspectRatio: 16/9 ,
+                      itemBuilder: (context,index){
+                    return Image.network(data['imageURL'][index],width: double.infinity,fit : BoxFit.cover,);
                   }),
                   10.heightBox ,
                   title!.text.size(16).color(darkFontGrey).fontFamily(semibold).make(),
                   10.heightBox ,
-                  VxRating(onRatingUpdate: (value){},
+                  VxRating(
+                    value: double.parse(data['rating']),
+                    isSelectable : false ,
+                    maxRating: 5,
+                    onRatingUpdate: (value){},
                     normalColor: textfieldGrey,
                     selectionColor: golden,
                     count: 5,
                   size: 25,
                   stepInt: true,),
                   10.heightBox,
-                  "\$ 2".text.fontFamily(bold).color(Colors.red).size(18).make(),
+                  "\$ ${data['price']}".text.fontFamily(bold).color(Colors.red).size(18).make(),
                   Row(
 
                     children: [
@@ -60,9 +72,9 @@ class ItemDetails extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment : CrossAxisAlignment.start ,
                           children: [
-                            "Seller".text.gray800.fontFamily(bold).make(),
+                            "Brand : ".text.gray800.fontFamily(bold).make(),
                             5.heightBox,
-                            "Ghada".text.gray500.fontFamily(semibold).size(16).make(),
+                            "${data['brand']}".text.gray500.fontFamily(semibold).size(16).make(),
                           ],
 
                         ),
@@ -77,7 +89,7 @@ class ItemDetails extends StatelessWidget {
                   10.heightBox,
                   "Description".text.color(darkFontGrey).fontFamily(semibold).make(),
                   10.heightBox,
-                  "this is a description ...".text.color(darkFontGrey).make(),
+                  "${data['desc']}".text.color(darkFontGrey).make(),
 
                   //Review section
                   ListView(

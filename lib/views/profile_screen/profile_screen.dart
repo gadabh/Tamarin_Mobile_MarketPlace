@@ -28,6 +28,7 @@ class ProfileScreen extends StatelessWidget {
           backgroundColor: Colors.white,
 
           appBar: AppBar(
+            automaticallyImplyLeading: false ,
             title: "Profile".text.fontFamily(bold).color(darkFontGrey).make(),
           ),
         body: StreamBuilder(

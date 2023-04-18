@@ -25,6 +25,7 @@ class CategoryScreen extends StatelessWidget {
       Scaffold(
         backgroundColor: lightGrey,
         appBar: AppBar(
+          automaticallyImplyLeading: false ,
           backgroundColor: lightGrey
           ,
           title: categories.text.color(darkFontGrey).fontFamily(bold).make(),

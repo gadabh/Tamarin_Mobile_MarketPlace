@@ -11,4 +11,11 @@ class FirestorServices {
   static getUser(uid){
     return firestore.collection(userCollection).where('id',isEqualTo: uid).snapshots();
   }
+
+  // get asset according to category
+   static getAssets(category){
+    return firestore.collection(assetCollection).where('category',isEqualTo : category).snapshots();
+
+   }
+
 }
