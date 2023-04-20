@@ -1,11 +1,8 @@
-
-
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mobile_v3/consts/consts.dart';
+import 'package:mobile_v3/controllers/cart_controller.dart';
 import 'package:mobile_v3/services/firestore_services.dart';
 import 'package:mobile_v3/views/category_screen/loading_indicator.dart';
 import 'package:mobile_v3/widgets_common/our_buttom.dart';
@@ -13,8 +10,10 @@ import 'package:mobile_v3/widgets_common/our_buttom.dart';
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
+     var controller = Get.put(CartController());
     return  Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
@@ -40,8 +39,9 @@ class CartScreen extends StatelessWidget {
 
           }else {
             var data= snapshot.data!.docs ;
+            controller.calculate(data);
             return Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
                   Expanded(
@@ -51,8 +51,14 @@ class CartScreen extends StatelessWidget {
                               itemCount : data.length ,
                               itemBuilder: (BuildContext context , int index ){
                                 return ListTile(
-                                  leading: Image.network("${data[index]['imageURL']}"),
+                                  leading: Image.network("${data[index]['imageURL']}" , height: 100 ,width: 100,),
+                                  title:"${data[index]['name']}".text.fontFamily(semibold).size(16).color(darkFontGrey).make(),
+                                  subtitle: "${data[index]['price']}".numCurrency.text.color(Colors.red).fontFamily(semibold).make(),
+                                trailing: const Icon(Icons.delete , color: Colors.red)
+                                    .onTap(() {
+                                      FirestorServices.deletDocument(data[index].id);
 
+                                     }),
                                 );
                               }),
                       ),
@@ -66,12 +72,14 @@ class CartScreen extends StatelessWidget {
                           .fontFamily(semibold)
                           .color(darkFontGrey)
                           .make(),
-                      "40"
-                          .numCurrency
-                          .text
-                          .fontFamily(semibold)
-                          .color(Colors.red)
-                          .make(),
+                      Obx(()=>
+                        "${controller.totalP.value}"
+                            .numCurrency
+                            .text
+                            .fontFamily(semibold)
+                            .color(Colors.red)
+                            .make(),
+                      ),
                     ],
                   ).box.padding(const EdgeInsets.all(12)).width(context.screenWidth - 60).color(lightGolden).roundedSM.make(),
                   10.heightBox,
