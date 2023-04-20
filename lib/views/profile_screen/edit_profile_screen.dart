@@ -30,17 +30,14 @@ class EditProfileScreen extends StatelessWidget {
         body: Obx(()=> Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-
-
-              //if data url and controller path is empty
-              data['photo'] ==''  && controller.profilImgPath.isEmpty
+               controller.profilImgPath.isEmpty
                   ?Image.asset(
                 imgProfile2,
                 width: 100,
                 fit: BoxFit.cover,
               ).box.roundedFull.clip(Clip.antiAlias).make()
-              :Image.network(
-                data['photo'],
+              :Image.file(
+                File(controller.profilImgPath.value),
                 width: 100,
                 fit: BoxFit.cover,
               ).box.roundedFull.clip(Clip.antiAlias).make(),

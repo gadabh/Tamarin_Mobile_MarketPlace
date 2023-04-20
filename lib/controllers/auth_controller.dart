@@ -6,11 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:mobile_v3/consts/consts.dart';
-import 'package:velocity_x/velocity_x.dart';
 
-import '../consts/firebase_consts.dart';
 
 class AuthController extends GetxController{
 
@@ -71,7 +68,7 @@ class AuthController extends GetxController{
 
 
   //storing data method
- storeUserData({email,password ,name,photo,role}) async{
+ storeUserData({email,password ,name}) async{
     DocumentReference store = await firestore.collection(userCollection)
         .doc(currentUser!.uid);
     store.set({
@@ -80,7 +77,7 @@ class AuthController extends GetxController{
       'name': name,
       'photo': '',
       'id' : currentUser!.uid ,
-      'role': role,
+      'role': "user",
       'cart_count':"00",
        'order_count':"00",
        'wishlist_count':"00",
