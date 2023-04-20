@@ -18,4 +18,8 @@ class FirestorServices {
 
    }
 
+   static getCart(uid){
+     return firestore.collection(cartCollection).where('added_by' , isEqualTo: uid).snapshots();
+   }
+
 }
