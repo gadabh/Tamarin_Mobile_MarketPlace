@@ -86,7 +86,6 @@ class ItemDetails extends StatelessWidget {
                         Expanded(
 
                           child: Column(
-
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment : CrossAxisAlignment.start ,
                             children: [
@@ -100,7 +99,7 @@ class ItemDetails extends StatelessWidget {
                         const CircleAvatar(
                           backgroundColor: Colors.white,
                           child: Icon(Icons.message_rounded, color: darkFontGrey),
-                        ).onTap(() {Get.to(()=>ChatScreen());
+                        ).onTap(() {Get.to(()=> const ChatScreen());
                         })
                       ],
                     ).box.height(60).padding(const EdgeInsets.symmetric(horizontal: 16)).color(Colors.grey.shade100).make(),
