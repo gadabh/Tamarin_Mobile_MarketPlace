@@ -9,6 +9,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:mobile_v3/consts/colors.dart';
 import 'package:mobile_v3/consts/consts.dart';
 import 'package:mobile_v3/consts/listes.dart';
+import 'package:mobile_v3/views/chat_screen/chat_screen.dart';
 import 'package:mobile_v3/widgets_common/our_buttom.dart';
 
 import '../../controllers/asset_controller.dart';
@@ -99,7 +100,8 @@ class ItemDetails extends StatelessWidget {
                         const CircleAvatar(
                           backgroundColor: Colors.white,
                           child: Icon(Icons.message_rounded, color: darkFontGrey),
-                        )
+                        ).onTap(() {Get.to(()=>ChatScreen());
+                        })
                       ],
                     ).box.height(60).padding(const EdgeInsets.symmetric(horizontal: 16)).color(Colors.grey.shade100).make(),
                      //description Section
