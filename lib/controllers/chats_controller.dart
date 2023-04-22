@@ -26,9 +26,11 @@ class ChatsController extends GetxController{
        var msgController =TextEditingController();
 
        dynamic chatDocId ;
+       var isLoading =false.obs;
 
            // Display  msg
              getChatId()async{
+               isLoading(true);
                await chats.
                where('users', isEqualTo: {
                  receiverId: null ,
@@ -56,6 +58,7 @@ class ChatsController extends GetxController{
                    });
                  }
                });
+               isLoading(false);
              }
 
 

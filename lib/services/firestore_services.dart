@@ -27,4 +27,13 @@ class FirestorServices {
     return firestore.collection(cartCollection).doc(docId).delete();
   }
 
+  //get all chat messages
+  static getChatMessages(docId){
+    return firestore
+        .collection(chatsCollection)
+        .doc(docId).collection(messageCollection)
+        .orderBy('created_on',descending: true)
+        .snapshots();
+  }
+
 }
