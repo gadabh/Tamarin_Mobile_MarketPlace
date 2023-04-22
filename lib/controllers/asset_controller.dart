@@ -5,6 +5,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:mobile_v3/consts/consts.dart';
 
@@ -13,6 +14,8 @@ import '../models/category_model.dart';
 class AssetController extends GetxController{
   var subcat=[];
   var isFav = false.obs ;
+
+
 
 getSubCategories(title) async{
   subcat.clear();
@@ -39,23 +42,25 @@ addToCart({
   });
 }
 
-addToWishlist(docId)async{
+addToWishlist(docId,context)async{
   await firestore.collection(assetCollection).doc(docId).set({
     'wishlist': FieldValue.arrayUnion([
       currentUser!.uid
     ])
   },SetOptions(merge: true));
   isFav(true);
+  VxToast.show(context  , msg: "Added to Wishlist");
 }
 
 
-  removeFromWishlist(docId)async{
+  removeFromWishlist(docId,context)async{
     await firestore.collection(assetCollection).doc(docId).set({
       'wishlist': FieldValue.arrayRemove([
         currentUser!.uid
       ])
     },SetOptions(merge: true));
     isFav(false);
+    VxToast.show(context  , msg: "Removed from Wishlist");
   }
 
   checkIfFav(data)async{

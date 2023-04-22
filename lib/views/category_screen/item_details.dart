@@ -48,10 +48,10 @@ class ItemDetails extends StatelessWidget {
             Obx(()=>
                IconButton(onPressed: (){
                 if(controller.isFav.value){
-                  controller.removeFromWishlist(data.id);
+                  controller.removeFromWishlist(data.id,context);
 
                 }else{
-                  controller.addToWishlist(data.id);
+                  controller.addToWishlist(data.id,context);
 
                 }
 
