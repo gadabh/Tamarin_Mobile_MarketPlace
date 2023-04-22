@@ -26,6 +26,7 @@ class ItemDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<AssetController>();
+
     return WillPopScope(
       onWillPop: ()async {
         controller.resetValues();
@@ -42,7 +43,9 @@ class ItemDetails extends StatelessWidget {
           title: title!.text.color(darkFontGrey).fontFamily(bold).make(),
           actions: [
             IconButton(onPressed: (){}, icon: const Icon(Icons.share)),
-            IconButton(onPressed: (){}, icon: const Icon(Icons.favorite_outline))
+            IconButton(onPressed: (){
+
+            }, icon: const Icon(Icons.favorite_outline))
 
           ],
         ),
@@ -99,7 +102,13 @@ class ItemDetails extends StatelessWidget {
                         const CircleAvatar(
                           backgroundColor: Colors.white,
                           child: Icon(Icons.message_rounded, color: darkFontGrey),
-                        ).onTap(() {Get.to(()=> const ChatScreen());
+                        ).onTap(() {
+
+                        Get.to(
+                               ()=> const ChatScreen(),
+
+                          arguments: [data['prop'], data['added_by']],
+                        );
                         })
                       ],
                     ).box.height(60).padding(const EdgeInsets.symmetric(horizontal: 16)).color(Colors.grey.shade100).make(),
@@ -163,7 +172,7 @@ class ItemDetails extends StatelessWidget {
                      controller.addToCart(
                          name  : data['name'],
                        imageURL :  data['imageURL'][0],
-                         seller : data['prop'],
+                          prop : data['prop'],
                          price : data['price'],
                          context : context ,
 

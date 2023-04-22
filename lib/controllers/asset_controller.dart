@@ -23,12 +23,12 @@ getSubCategories(title) async{
   }
 }
 addToCart({
-    name , imageURL , seller , price ,context
+    name , imageURL , prop , price ,context
 })async{
   await firestore.collection(cartCollection).doc().set({
     'name' :name ,
     'imageURL': imageURL ,
-    'seller': seller ,
+    'prop': prop ,
     'price':price,
     'added_by' : currentUser!.uid
 

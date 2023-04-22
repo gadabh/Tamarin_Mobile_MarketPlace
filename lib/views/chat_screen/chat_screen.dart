@@ -2,7 +2,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mobile_v3/consts/consts.dart';
+import 'package:mobile_v3/controllers/chats_controller.dart';
 import 'package:mobile_v3/views/chat_screen/components/sender_bubble.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -10,6 +13,7 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(ChatsController());
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
@@ -20,14 +24,11 @@ class ChatScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-                child: Container(
-                 color: CupertinoColors.lightBackgroundGray,
-                  child: ListView(
-                    children: [
-                      senderBubble(),
-                      senderBubble(),
-                    ],
-                  ),
+                child: ListView(
+                  children: [
+                    senderBubble(),
+                    senderBubble(),
+                  ],
                 ),
 
            ),
