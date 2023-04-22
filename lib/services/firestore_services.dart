@@ -32,7 +32,7 @@ class FirestorServices {
     return firestore
         .collection(chatsCollection)
         .doc(docId).collection(messageCollection)
-        .orderBy('created_on',descending: true)
+        .orderBy('created_on',descending: false)
         .snapshots();
   }
 

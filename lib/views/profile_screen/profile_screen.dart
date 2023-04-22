@@ -34,7 +34,7 @@ class ProfileScreen extends StatelessWidget {
         body: StreamBuilder(
           stream: FirestorServices.getUser(currentUser!.uid),
       
-          builder: (BuildContext context , AsyncSnapshot<QuerySnapshot > snapshot ){
+          builder: (BuildContext context , AsyncSnapshot<QuerySnapshot> snapshot ){
 
             if ( !snapshot.hasData){
               return const Center(child: CircularProgressIndicator (

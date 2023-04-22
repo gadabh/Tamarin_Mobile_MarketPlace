@@ -3,6 +3,8 @@
 
 
 
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -29,7 +31,7 @@ class ItemDetails extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: ()async {
-        controller.resetValues();
+      //  controller.resetValues();
         return false ;
       },
       child: Scaffold(
@@ -37,15 +39,28 @@ class ItemDetails extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             onPressed:(){
-              controller.resetValues();
+           //   controller.resetValues();
                Get.back();
-               } ,icon: Icon(Icons.arrow_back),),
+               } ,icon: const Icon(Icons.arrow_back),),
           title: title!.text.color(darkFontGrey).fontFamily(bold).make(),
           actions: [
             IconButton(onPressed: (){}, icon: const Icon(Icons.share)),
-            IconButton(onPressed: (){
+            Obx(()=>
+               IconButton(onPressed: (){
+                if(controller.isFav.value){
+                  controller.removeFromWishlist(data.id);
 
-            }, icon: const Icon(Icons.favorite_outline))
+                }else{
+                  controller.addToWishlist(data.id);
+
+                }
+
+              }, icon:  Icon(
+                Icons.favorite_outlined ,
+                color: controller.isFav.value? Colors.red : darkFontGrey,
+
+              )),
+            )
 
           ],
         ),
@@ -107,7 +122,7 @@ class ItemDetails extends StatelessWidget {
                         Get.to(
                                ()=> const ChatScreen(),
 
-                          arguments: [data['prop'], data['added_by']],
+                          arguments: [data['brand'], data['added_by']],
                         );
                         })
                       ],
