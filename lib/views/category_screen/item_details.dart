@@ -19,7 +19,7 @@ import '../../controllers/asset_controller.dart';
 
 class ItemDetails extends StatelessWidget {
 
-
+  static const existe =false ;
   final String? title ;
   final dynamic data ;
   const ItemDetails({Key? key ,required this.title , this.data}) : super(key: key);
@@ -180,23 +180,35 @@ class ItemDetails extends StatelessWidget {
 
             )),
             SizedBox(
-              width: double.infinity,
-              height: 60,
-              child: ourButtom(color: redColor,
-                  onPress: (){
-                     controller.addToCart(
-                         name  : data['name'],
-                       imageURL :  data['imageURL'][0],
-                          prop : data['prop'],
-                         price : data['price'],
-                         context : context ,
+                width: double.infinity,
+                height: 60,
+                child: ourButtom(
+                    color: redColor,
+                    onPress: (){
+
+                  if(controller.iscart.value){
+                    VxToast.show(context, msg: "Already in the cart");
+
+                  }else{
+                    controller.addIdToCart(data.id,context);
+                    controller.addToCart(
+                      name: data['name'],
+                      imageURL: data['imageURL'][0],
+                      prop: data['prop'],
+                      price: data['price'],
+                      existe: "true",
+                      context: context,
+                    );
 
 
-                     ); VxToast.show(context, msg: "Added to cart");
-                  },
-                  textColor: whiteColor,
-                  title: "Add to cart "),
-            )
+
+                  }
+
+                    },
+                    textColor: whiteColor,
+                    title: "Add to cart "),
+              ),
+
           ],
 
         ),

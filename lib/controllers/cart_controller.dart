@@ -1,6 +1,7 @@
 
 
 
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController{
@@ -13,4 +14,6 @@ class CartController extends GetxController{
         totalP.value = totalP.value + int.parse(data[i]['price'].toString());
       }
     }
+
+
 }

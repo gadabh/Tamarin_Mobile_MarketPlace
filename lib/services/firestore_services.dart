@@ -1,5 +1,6 @@
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mobile_v3/consts/consts.dart';
 
 class FirestorServices {
@@ -23,9 +24,12 @@ class FirestorServices {
      return firestore.collection(cartCollection).where('added_by' , isEqualTo: uid).snapshots();
    }
    // delte asset from cart ==> del  document
-  static deletDocument(docId){
-    return firestore.collection(cartCollection).doc(docId).delete();
+  static deletDocument(docId)  {
+    firestore.collection(cartCollection).doc(docId).delete();
   }
+
+
+
 
   //get all chat messages
   static getChatMessages(docId){

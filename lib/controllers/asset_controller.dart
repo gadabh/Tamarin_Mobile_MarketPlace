@@ -14,6 +14,7 @@ import '../models/category_model.dart';
 class AssetController extends GetxController{
   var subcat=[];
   var isFav = false.obs ;
+  var iscart =false.obs ;
 
 
 
@@ -28,14 +29,15 @@ getSubCategories(title) async{
   }
 }
 addToCart({
-    name , imageURL , prop , price ,context
+    name , imageURL , prop , price ,context,existe ,
 })async{
   await firestore.collection(cartCollection).doc().set({
     'name' :name ,
     'imageURL': imageURL ,
     'prop': prop ,
     'price':price,
-    'added_by' : currentUser!.uid
+    'added_by' : currentUser!.uid,
+    'existe': existe,
 
   }).catchError((error){
     VxToast.show(context, msg: error.toString());
@@ -57,7 +59,8 @@ addToWishlist(docId,context)async{
     await firestore.collection(assetCollection).doc(docId).set({
       'wishlist': FieldValue.arrayRemove([
         currentUser!.uid
-      ])
+      ]),
+
     },SetOptions(merge: true));
     isFav(false);
     VxToast.show(context  , msg: "Removed from Wishlist");
@@ -71,6 +74,31 @@ addToWishlist(docId,context)async{
 
     }
   }
+
+
+  checkIfInCart(data)async{
+    if(data['exist'].contains(currentUser!.uid)){
+      iscart(true);
+    }else {
+      iscart(false);
+
+    }
+  }
+
+  addIdToCart(docId,context)async{
+    await firestore.collection(assetCollection).doc(docId).set({
+      'exist': FieldValue.arrayUnion([
+        currentUser!.uid
+      ])
+    },SetOptions(merge: true));
+    iscart(true);
+    VxToast.show(context  , msg: "Add to cart");
+  }
+
+
+
+
+
 }
 
 
