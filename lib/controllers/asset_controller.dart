@@ -15,6 +15,7 @@ class AssetController extends GetxController{
   var subcat=[];
   var isFav = false.obs ;
   var iscart =false.obs ;
+  var quantity= 0.obs ;
 
 
 
@@ -29,15 +30,16 @@ getSubCategories(title) async{
   }
 }
 addToCart({
-    name , imageURL , prop , price ,context,existe ,
+    name , imageURL , prop , price ,context,//existe,
 })async{
   await firestore.collection(cartCollection).doc().set({
+
     'name' :name ,
     'imageURL': imageURL ,
     'prop': prop ,
     'price':price,
     'added_by' : currentUser!.uid,
-    'existe': existe,
+   // 'existe': existe,
 
   }).catchError((error){
     VxToast.show(context, msg: error.toString());
@@ -66,6 +68,8 @@ addToWishlist(docId,context)async{
     VxToast.show(context  , msg: "Removed from Wishlist");
   }
 
+
+
   checkIfFav(data)async{
     if(data['wishlist'].contains(currentUser!.uid)){
       isFav(true);
@@ -74,6 +78,21 @@ addToWishlist(docId,context)async{
 
     }
   }
+
+  increaseQuantity(context){
+    VxToast.show(context, msg: "add in the cart");
+  quantity.value++;
+  }
+  decreaseQuantity(context){
+
+  quantity.value--;
+  }
+
+
+
+
+  /*
+
 
 
   checkIfInCart(data)async{
@@ -94,6 +113,7 @@ addToWishlist(docId,context)async{
     iscart(true);
     VxToast.show(context  , msg: "Add to cart");
   }
+*/
 
 
 

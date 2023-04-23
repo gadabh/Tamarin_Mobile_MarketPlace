@@ -7,6 +7,8 @@ import 'package:mobile_v3/services/firestore_services.dart';
 import 'package:mobile_v3/views/category_screen/loading_indicator.dart';
 import 'package:mobile_v3/widgets_common/our_buttom.dart';
 
+import '../../controllers/asset_controller.dart';
+
 
 
 class CartScreen extends StatelessWidget {
@@ -16,6 +18,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      var controller = Get.put(CartController());
+     var ccontroller = Get.put(AssetController());
     return  Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
@@ -42,7 +45,7 @@ class CartScreen extends StatelessWidget {
           }else {
             var data= snapshot.data!.docs ;
             controller.calculate(data);
-            print(data);
+
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -56,11 +59,10 @@ class CartScreen extends StatelessWidget {
                               leading: Image.network("${data[index]['imageURL']}" , height: 100 ,width: 100,),
                               title:"${data[index]['name']}".text.fontFamily(semibold).size(16).color(darkFontGrey).make(),
                               subtitle: "${data[index]['price']}".numCurrency.text.color(Colors.red).fontFamily(semibold).make(),
-                            trailing: const Icon(Icons.delete , color: Colors.red)
+                              trailing: const Icon(Icons.delete , color: Colors.red)
                                 .onTap(() async {
+                                  ccontroller.decreaseQuantity(context);
                                   FirestorServices.deletDocument(data[index].id);
-
-
 
                             }),
                             );

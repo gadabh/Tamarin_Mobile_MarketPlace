@@ -19,7 +19,7 @@ import '../../controllers/asset_controller.dart';
 
 class ItemDetails extends StatelessWidget {
 
-  static const existe =false ;
+//  static const existe =false ;
   final String? title ;
   final dynamic data ;
   const ItemDetails({Key? key ,required this.title , this.data}) : super(key: key);
@@ -133,6 +133,8 @@ class ItemDetails extends StatelessWidget {
                     10.heightBox,
                     "${data['desc']}".text.color(darkFontGrey).make(),
 
+
+
                     //Review section
                     ListView(
                       physics: const NeverScrollableScrollPhysics(),
@@ -186,17 +188,18 @@ class ItemDetails extends StatelessWidget {
                     color: redColor,
                     onPress: (){
 
-                  if(controller.iscart.value){
+                  if(controller.quantity.value>0){
                     VxToast.show(context, msg: "Already in the cart");
 
                   }else{
-                    controller.addIdToCart(data.id,context);
+                    controller.increaseQuantity(context);
                     controller.addToCart(
+
                       name: data['name'],
                       imageURL: data['imageURL'][0],
                       prop: data['prop'],
                       price: data['price'],
-                      existe: "true",
+
                       context: context,
                     );
 
