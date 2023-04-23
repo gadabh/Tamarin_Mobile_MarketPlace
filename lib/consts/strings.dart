@@ -66,4 +66,6 @@ const  wishlist = "My Wishlist" , orders ="My Orders" , message ="Messages", old
 
 
 
-
+//payement methods string
+const paypal="Paypal",
+    stripe ="Stripe";

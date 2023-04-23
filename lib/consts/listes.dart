@@ -70,3 +70,13 @@ const profileButtonIcon =[
   icOrder , icOrder , icMessages
 ];
 
+
+const payementMethodsImg=[
+  imgPaypal , imgStripe
+];
+const payementMethods=[
+paypal, stripe
+];
+
+
+
