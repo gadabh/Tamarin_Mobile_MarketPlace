@@ -1,14 +1,7 @@
-
-
-
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:mobile_v3/consts/consts.dart';
-
 import '../models/category_model.dart';
 
 class AssetController extends GetxController{
@@ -30,7 +23,7 @@ getSubCategories(title) async{
   }
 }
 addToCart({
-    name , imageURL , prop , price ,context,//existe,
+    name , imageURL , prop , price ,context,
 })async{
   await firestore.collection(cartCollection).doc().set({
 
@@ -39,7 +32,7 @@ addToCart({
     'prop': prop ,
     'price':price,
     'added_by' : currentUser!.uid,
-   // 'existe': existe,
+
 
   }).catchError((error){
     VxToast.show(context, msg: error.toString());
@@ -89,31 +82,6 @@ addToWishlist(docId,context)async{
   }
 
 
-
-
-  /*
-
-
-
-  checkIfInCart(data)async{
-    if(data['exist'].contains(currentUser!.uid)){
-      iscart(true);
-    }else {
-      iscart(false);
-
-    }
-  }
-
-  addIdToCart(docId,context)async{
-    await firestore.collection(assetCollection).doc(docId).set({
-      'exist': FieldValue.arrayUnion([
-        currentUser!.uid
-      ])
-    },SetOptions(merge: true));
-    iscart(true);
-    VxToast.show(context  , msg: "Add to cart");
-  }
-*/
 
 
 
