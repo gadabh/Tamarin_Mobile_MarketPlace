@@ -7,7 +7,6 @@ import 'package:mobile_v3/views/auth_screen/login_screen.dart';
 import 'package:mobile_v3/views/home_screen/home.dart';
 import 'package:mobile_v3/widgets_common/appLogo_widget.dart';
 import 'package:mobile_v3/widgets_common/our_buttom.dart';
-import '../../widgets_common/bg_auth_widget.dart';
 import '../../widgets_common/custom_textfield.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -67,9 +66,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             onChanged: (newValue){
                             setState(() {
                               isCheck=newValue;
-
                             });
-
                         },
                         ),
                           10.widthBox,
@@ -84,8 +81,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         fontFamily : regular ,
                                         color : fontGrey ,
                                       )),
-
-
                                   TextSpan(
                                       text: termAndCond,
                                       style: TextStyle(
@@ -113,7 +108,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                      controller.isLoading.value? const CircularProgressIndicator(
                        valueColor: AlwaysStoppedAnimation(redColor),
                      ) : ourButtom(
-
                           color: isCheck==true ? redColor  : lightGrey,
                           title: signup ,
                           textColor: whiteColor,
@@ -139,8 +133,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                  auth.signOut();
                                  VxToast.show(context, msg: e.toString());
                                  controller.isLoading(false);
-
-
                                }
                              }
                           }
@@ -167,16 +159,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
 
-
                         ]
                       )).onTap(() {
                        Get.to(()=> const LoginScreen());
                       })
-
-
-
-
-
 
                     ],
                   ).box.white.rounded.padding(const EdgeInsets.all(16) ).width(context.screenWidth- 70).make(),

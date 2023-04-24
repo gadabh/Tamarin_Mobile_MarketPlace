@@ -1,8 +1,4 @@
-
-
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController{
@@ -17,12 +13,6 @@ class CartController extends GetxController{
     var postalController = TextEditingController();
     var phoneController = TextEditingController();
     var controller = TextEditingController();
-
-
-
-
-
-
 
 
 

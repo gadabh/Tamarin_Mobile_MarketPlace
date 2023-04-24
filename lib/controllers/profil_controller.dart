@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_v3/consts/consts.dart';
 import 'package:path/path.dart';
+
 class ProfileController extends GetxController{
 
 var profilImgPath =''.obs ;

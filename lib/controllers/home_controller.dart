@@ -1,6 +1,3 @@
-
-
-
 import 'package:get/get.dart';
 import 'package:mobile_v3/consts/consts.dart';
 
@@ -19,12 +16,11 @@ var currentNavIndex = 0.obs ;
 var username='';
 
 getUsername()async{
-  var n =await firestore.collection(userCollection).where('id',isEqualTo: currentUser!.uid).get().then((value) {
+  var n =await firestore.collection(userCollection)
+      .where('id',isEqualTo: currentUser!.uid).get().then((value) {
         if(value.docs.isNotEmpty){
           return value.docs.single['name'];
         }
-
-
   });
   username= n ;
 }

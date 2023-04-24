@@ -4,10 +4,9 @@ import 'package:get/get.dart';
 import 'package:mobile_v3/consts/consts.dart';
 import 'package:mobile_v3/controllers/cart_controller.dart';
 import 'package:mobile_v3/services/firestore_services.dart';
-import 'package:mobile_v3/views/cart_screen/shipping_screen.dart';
+import 'package:mobile_v3/views/cart_screen/card_form_screen.dart';
 import 'package:mobile_v3/views/category_screen/loading_indicator.dart';
 import 'package:mobile_v3/widgets_common/our_buttom.dart';
-
 import '../../controllers/asset_controller.dart';
 
 
@@ -100,17 +99,7 @@ class CartScreen extends StatelessWidget {
                     ],
                   ).box.padding(const EdgeInsets.all(12)).width(context.screenWidth - 60).color(lightGolden).roundedSM.make(),
                   10.heightBox,
-                  // SizedBox(
-                  //   width: context.screenWidth - 60 ,
-                  //   child: ourButtom(
-                  //       color: redColor ,
-                  //       onPress: (){
-                  //
-                  //       } ,
-                  //       textColor: whiteColor ,
-                  //       title: "Check-out"
-                  //   ) ,
-                  // )
+
 
                 ],
               ),

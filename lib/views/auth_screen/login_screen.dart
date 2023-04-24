@@ -7,7 +7,6 @@ import 'package:mobile_v3/views/auth_screen/signup_screen.dart';
 import 'package:mobile_v3/views/home_screen/home.dart';
 import 'package:mobile_v3/widgets_common/appLogo_widget.dart';
 import 'package:mobile_v3/widgets_common/our_buttom.dart';
-
 import '../../widgets_common/custom_textfield.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -103,14 +102,8 @@ class LoginScreen extends StatelessWidget {
                     child: Image.asset(socialIconList[index],width:25 ,),
                   ),
                       )),
-
-
-                )
-
-
-              ],
+                )  ],
             ).box.white.rounded.padding(const EdgeInsets.all(16) ).width(context.screenWidth- 70).make()
-
 
           ],
         ),

@@ -1,7 +1,3 @@
-
-
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,11 +7,8 @@ import 'package:mobile_v3/consts/consts.dart';
 
 class AuthController extends GetxController{
 
-  //
+
   var isLoading = false.obs ;
-
-
-
 
 
   //text Controller

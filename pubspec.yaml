@@ -16,6 +16,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+
   flutter:
     sdk: flutter
 
@@ -33,6 +34,10 @@ dependencies:
   firebase_storage: ^11.1.0
   cloud_firestore: ^4.5.1
   image_picker: ^0.8.7+3
+  flutter_stripe: ^2.3.0
+  http: ^0.13.5
+  flutter_bloc: ^8.1.2
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:
