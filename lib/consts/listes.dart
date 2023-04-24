@@ -72,10 +72,12 @@ const profileButtonIcon =[
 
 
 const payementMethodsImg=[
-  imgPaypal , imgStripe
+ // imgPaypal ,
+  imgStripe
 ];
 const payementMethods=[
-paypal, stripe
+//paypal,
+  stripe
 ];
 
 

@@ -17,6 +17,7 @@ class ShippingDetails extends StatelessWidget {
 
     var ccontroller = Get.find<CartController>();
     final PaymentController controller = Get.put(PaymentController());
+
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
@@ -27,8 +28,8 @@ class ShippingDetails extends StatelessWidget {
         height: 60,
         child: ourButtom(
           onPress: (){
-            if(ccontroller.addressController.text.length>10){
-
+            if(controller.addressController.text.length>10){
+              controller.placeMyOrder();
             }else{
               VxToast.show(context, msg: "Please fill the form");
             }
@@ -43,11 +44,11 @@ class ShippingDetails extends StatelessWidget {
         child: Column(
           children: [
 
-            costumTextField(hint: 'Address' , isPass: false , title: "Address" , controller: ccontroller.addressController),
-            costumTextField(hint: 'City',isPass: false ,title: 'City', controller: ccontroller.cityController),
-            costumTextField(hint: 'State',isPass: false ,title: 'State', controller: ccontroller.stateController),
-            costumTextField(hint: 'Postal Code',isPass: false,title: 'Postal Code', controller: ccontroller.postalController),
-            costumTextField(hint: 'Phone',isPass: false,title: "Phone", controller: ccontroller.phoneController),
+            costumTextField(hint: 'Address' , isPass: false , title: "Address" , controller: controller.addressController),
+            costumTextField(hint: 'City',isPass: false ,title: 'City', controller: controller.cityController),
+            costumTextField(hint: 'State',isPass: false ,title: 'State', controller: controller.stateController),
+            costumTextField(hint: 'Postal Code',isPass: false,title: 'Postal Code', controller: controller.postalController),
+            costumTextField(hint: 'Phone',isPass: false,title: "Phone", controller: controller.phoneController),
                 20.heightBox,
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -58,50 +59,54 @@ class ShippingDetails extends StatelessWidget {
                   onTap: () {
                     controller.makePayment(amount: '4', currency: 'USD');
                   },
-                  child: Column(
-                    children:
-                    List.generate(payementMethodsImg.length,(index){
-                      return Container(
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                                style: BorderStyle.solid,
-                                color: redColor,
-                                width: 4,
-                            )
-                        ),
-                        margin: const EdgeInsets.only(bottom: 8),
+                  child: Obx(()=> Column(
+                      children:
+                      List.generate(payementMethodsImg.length,(index){
+                        return GestureDetector(
+                          onTap: ccontroller.changePayementIndex(index),
+                          child: Container(
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                                color:  ccontroller.payementIndex.value ==index? redColor: Colors.transparent,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                    color: redColor,
+                                    width: 4,
+                                )
+                            ),
+                            margin: const EdgeInsets.only(bottom: 8),
 
 
-                          child: Stack(
-                            alignment: Alignment.topRight,
-                            children: [
-                              Image.asset(payementMethodsImg[index],width: double.infinity,height: 100,
-                                fit: BoxFit.cover,),
-                              Transform.scale(
-                                scale: 1.3,
+                              child: Stack(
+                                alignment: Alignment.topRight,
+                                children: [
+                                  Image.asset(payementMethodsImg[index],width: double.infinity,height: 100,
+                                    fit: BoxFit.cover,),
+                                 ccontroller.payementIndex.value==index?
+                                 Transform.scale(
+                                    scale: 1.3,
 
-                                child: Checkbox(
-                                  activeColor: Colors.green,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),value: true, onChanged: (value){
+                                    child: Checkbox(
+                                      activeColor: Colors.green,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(50),
+                                      ),value: true, onChanged: (value){
 
-                                }
-                                    ),
-                              ),
-                            
-                            ]
-                          )
+                                    }
+                                        ),
+                                  ):Container(),
 
-                      );
+                                ]
+                              )
 
-
-                    }
+                          ),
+                        );
 
 
+                      }
+
+
+                      ),
                     ),
                   ),
                 )

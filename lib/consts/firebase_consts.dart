@@ -12,3 +12,4 @@ const assetCollection = "assets" ;
 const cartCollection = 'cart';
 const chatsCollection = 'chats';
 const messageCollection ='messages';
+const ordersCollection = 'orders';

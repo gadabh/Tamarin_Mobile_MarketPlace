@@ -1,8 +1,12 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
+import '../consts/firebase_consts.dart';
+import 'home_controller.dart';
 
 class PaymentController extends GetxController {
   Map<String, dynamic>? paymentIntentData;
@@ -39,6 +43,8 @@ class PaymentController extends GetxController {
           colorText: Colors.white,
           margin: const EdgeInsets.all(10),
           duration: const Duration(seconds: 2));
+      await placeMyOrder();
+
     } on Exception catch (e) {
       if (e is StripeException) {
         print("Error from Stripe: ${e.error.localizedMessage}");
@@ -74,5 +80,56 @@ class PaymentController extends GetxController {
   calculateAmount(String amount) {
     final a = (int.parse(amount)) * 100;
     return a.toString();
+  }
+
+
+
+
+
+  //text controllers for  cart details
+  var addressController = TextEditingController();
+  var cityController = TextEditingController();
+  var stateController = TextEditingController();
+  var postalController = TextEditingController();
+  var phoneController = TextEditingController();
+  var controller = TextEditingController();
+
+  late dynamic assetSnapshot ;
+  var assets =[];
+
+  //validate the order
+  placeMyOrder({totalAmount})async{
+
+    await getAssetDetails();
+
+    await firestore.collection(ordersCollection).doc().set(
+        {
+          'order_by': currentUser!.uid,
+          'order_by_name': Get.find<HomeController>().username,
+          'order_by_email': currentUser!.email,
+          'order_by_adress': addressController.text,
+          'order_by_state':stateController.text,
+          'order_by_city':cityController.text,
+          'order_by_phone':phoneController.text,
+          'order_by_postalCode':postalController.text,
+          'payement_method': 'Stripe',
+          'total_amount':totalAmount,
+          'order': FieldValue.arrayUnion(assets),
+        }
+    );
+  }
+
+
+  getAssetDetails(){
+    assets.clear();
+    for(var i=0;i< assetSnapshot.length ; i++){
+      assets.add({
+        'name':assetSnapshot[i]['name'],
+        'imageURL':assetSnapshot[i]['imageURL'],
+        'prop':assetSnapshot[i]['prop'],
+      });
+
+    }
+    // print(assets);
   }
 }

@@ -1,21 +1,22 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:get/get.dart';
+
 
 class CartController extends GetxController{
     var totalP = 0.obs ;
 
 
 
-    //text controllers for  cart details
-    var addressController = TextEditingController();
-    var cityController = TextEditingController();
-    var stateController = TextEditingController();
-    var postalController = TextEditingController();
-    var phoneController = TextEditingController();
-    var controller = TextEditingController();
+
+
 
 
     var payementIndex=0.obs;
+    changePayementIndex(index){
+      payementIndex.value=index;
+    }
+
+
 
 
     calculate(data){

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_v3/consts/consts.dart';
 import 'package:mobile_v3/controllers/cart_controller.dart';
+import 'package:mobile_v3/controllers/payment_controller.dart';
 import 'package:mobile_v3/services/firestore_services.dart';
 import 'package:mobile_v3/views/cart_screen/card_form_screen.dart';
 import 'package:mobile_v3/views/category_screen/loading_indicator.dart';
@@ -19,6 +20,7 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
      var controller = Get.put(CartController());
      var ccontroller = Get.put(AssetController());
+     var pcontroller = Get.put(PaymentController());
     return  Scaffold(
        bottomNavigationBar: SizedBox(
          height: 60,
@@ -56,6 +58,7 @@ class CartScreen extends StatelessWidget {
           }else {
             var data= snapshot.data!.docs ;
             controller.calculate(data);
+            pcontroller.assetSnapshot= data;
 
             return Padding(
               padding: const EdgeInsets.all(8.0),
