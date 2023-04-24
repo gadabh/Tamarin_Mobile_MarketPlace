@@ -15,6 +15,8 @@ class CartController extends GetxController{
     var controller = TextEditingController();
 
 
+    var payementIndex=0.obs;
+
 
     calculate(data){
       totalP.value=0;
