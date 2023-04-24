@@ -12,42 +12,42 @@ class AssetController extends GetxController{
 
 
 
-getSubCategories(title) async{
-  subcat.clear();
-  var data = await rootBundle.loadString("lib/services/category_model.json");
-  var decoded=categoyModelFromJson(data);
-  var s= decoded.categories.where((element) => element.name == title).toList();
+  getSubCategories(title) async{
+    subcat.clear();
+    var data = await rootBundle.loadString("lib/services/category_model.json");
+    var decoded=categoyModelFromJson(data);
+    var s= decoded.categories.where((element) => element.name == title).toList();
 
-  for(var e in s[0].subcategory){
-    subcat.add(e);
+    for(var e in s[0].subcategory){
+      subcat.add(e);
+    }
   }
-}
-addToCart({
+  addToCart({
     name , imageURL , prop , price ,context,
-})async{
-  await firestore.collection(cartCollection).doc().set({
+  })async{
+    await firestore.collection(cartCollection).doc().set({
 
-    'name' :name ,
-    'imageURL': imageURL ,
-    'prop': prop ,
-    'price':price,
-    'added_by' : currentUser!.uid,
+      'name' :name ,
+      'imageURL': imageURL ,
+      'prop': prop ,
+      'price':price,
+      'added_by' : currentUser!.uid,
 
 
-  }).catchError((error){
-    VxToast.show(context, msg: error.toString());
-  });
-}
+    }).catchError((error){
+      VxToast.show(context, msg: error.toString());
+    });
+  }
 
-addToWishlist(docId,context)async{
-  await firestore.collection(assetCollection).doc(docId).set({
-    'wishlist': FieldValue.arrayUnion([
-      currentUser!.uid
-    ])
-  },SetOptions(merge: true));
-  isFav(true);
-  VxToast.show(context  , msg: "Added to Wishlist");
-}
+  addToWishlist(docId,context)async{
+    await firestore.collection(assetCollection).doc(docId).set({
+      'wishlist': FieldValue.arrayUnion([
+        currentUser!.uid
+      ])
+    },SetOptions(merge: true));
+    isFav(true);
+    VxToast.show(context  , msg: "Added to Wishlist");
+  }
 
 
   removeFromWishlist(docId,context)async{
@@ -74,11 +74,11 @@ addToWishlist(docId,context)async{
 
   increaseQuantity(context){
     VxToast.show(context, msg: "add in the cart");
-  quantity.value++;
+    quantity.value++;
   }
   decreaseQuantity(context){
 
-  quantity.value--;
+    quantity.value--;
   }
 
 

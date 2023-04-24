@@ -50,7 +50,7 @@ class ShippingDetails extends StatelessWidget {
             costumTextField(hint: 'State',isPass: false ,title: 'State', controller: controller.stateController),
             costumTextField(hint: 'Postal Code',isPass: false,title: 'Postal Code', controller: controller.postalController),
             costumTextField(hint: 'Phone',isPass: false,title: "Phone", controller: controller.phoneController),
-                20.heightBox,
+            20.heightBox,
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -61,54 +61,54 @@ class ShippingDetails extends StatelessWidget {
                     controller.makePayment(amount: totalAmount!, currency: 'USD');
                   },
                   child: Obx(()=> Column(
-                      children:
-                      List.generate(payementMethodsImg.length,(index){
-                        return GestureDetector(
-                          onTap: ccontroller.changePayementIndex(index),
-                          child: Container(
+                    children:
+                    List.generate(payementMethodsImg.length,(index){
+                      return GestureDetector(
+                        onTap: ccontroller.changePayementIndex(index),
+                        child: Container(
                             clipBehavior: Clip.antiAlias,
                             decoration: BoxDecoration(
                                 color:  ccontroller.payementIndex.value ==index? redColor: Colors.transparent,
                                 borderRadius: BorderRadius.circular(12),
                                 border: Border.all(
-                                    color: redColor,
-                                    width: 4,
+                                  color: redColor,
+                                  width: 4,
                                 )
                             ),
                             margin: const EdgeInsets.only(bottom: 8),
 
 
-                              child: Stack(
+                            child: Stack(
                                 alignment: Alignment.topRight,
                                 children: [
                                   Image.asset(payementMethodsImg[index],width: double.infinity,height: 100,
                                     fit: BoxFit.cover,),
-                                 ccontroller.payementIndex.value==index?
-                                 Transform.scale(
+                                  ccontroller.payementIndex.value==index?
+                                  Transform.scale(
                                     scale: 1.3,
 
                                     child: Checkbox(
-                                      activeColor: Colors.green,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),value: true, onChanged: (value){
+                                        activeColor: Colors.green,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(50),
+                                        ),value: true, onChanged: (value){
 
                                     }
-                                        ),
+                                    ),
                                   ):Container(),
 
                                 ]
-                              )
+                            )
 
-                          ),
-                        );
-
-
-                      }
+                        ),
+                      );
 
 
-                      ),
+                    }
+
+
                     ),
+                  ),
                   ),
                 )
               ],

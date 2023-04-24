@@ -18,53 +18,53 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     var controller = Get.put(CartController());
-     var ccontroller = Get.put(AssetController());
-     var pcontroller = Get.put(PaymentController());
+    var controller = Get.put(CartController());
+    var ccontroller = Get.put(AssetController());
+    var pcontroller = Get.put(PaymentController());
     return  Scaffold(
-       bottomNavigationBar: SizedBox(
-         height: 60,
-         child: ourButtom(
-                 color: redColor ,
-                 onPress: (){
-                    Get.to(()=> ShippingDetails( totalAmount: ' ${controller.totalP.value}'));
-                  } ,
-                  textColor: whiteColor ,
-                title: "Checkout"
-           ),
-       ) ,
-      backgroundColor: whiteColor,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: "Shopping cart"
-        .text
-        .color(darkFontGrey)
-        .fontFamily(semibold)
-        .make(),
-      ),
-      body:  StreamBuilder(
-        stream: FirestorServices.getCart(currentUser!.uid) ,
-         builder: (BuildContext context  , AsyncSnapshot<QuerySnapshot> snapshot){
-          if(!snapshot.hasData){
-            return Center(
-              child: loadingIndicator(),
-            );
+        bottomNavigationBar: SizedBox(
+          height: 60,
+          child: ourButtom(
+              color: redColor ,
+              onPress: (){
+                Get.to(()=> ShippingDetails( totalAmount: ' ${controller.totalP.value}'));
+              } ,
+              textColor: whiteColor ,
+              title: "Checkout"
+          ),
+        ) ,
+        backgroundColor: whiteColor,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: "Shopping cart"
+              .text
+              .color(darkFontGrey)
+              .fontFamily(semibold)
+              .make(),
+        ),
+        body:  StreamBuilder(
+          stream: FirestorServices.getCart(currentUser!.uid) ,
+          builder: (BuildContext context  , AsyncSnapshot<QuerySnapshot> snapshot){
+            if(!snapshot.hasData){
+              return Center(
+                child: loadingIndicator(),
+              );
 
-          }else if (snapshot.data!.docs.isEmpty){
-            return Center(
-              child: "Cart is empty".text.color(darkFontGrey).make(),
-            );
+            }else if (snapshot.data!.docs.isEmpty){
+              return Center(
+                child: "Cart is empty".text.color(darkFontGrey).make(),
+              );
 
-          }else {
-            var data= snapshot.data!.docs ;
-            controller.calculate(data);
-            pcontroller.assetSnapshot= data;
+            }else {
+              var data= snapshot.data!.docs ;
+              controller.calculate(data);
+              pcontroller.assetSnapshot= data;
 
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Expanded(
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Expanded(
                       child:
                       ListView.builder(
                           itemCount : data.length ,
@@ -74,42 +74,42 @@ class CartScreen extends StatelessWidget {
                               title:"${data[index]['name']}".text.fontFamily(semibold).size(16).color(darkFontGrey).make(),
                               subtitle: "${data[index]['price']}".numCurrency.text.color(Colors.red).fontFamily(semibold).make(),
                               trailing: const Icon(Icons.delete , color: Colors.red)
-                                .onTap(() async {
-                                  ccontroller.decreaseQuantity(context);
-                                  FirestorServices.deletDocument(data[index].id);
+                                  .onTap(() async {
+                                ccontroller.decreaseQuantity(context);
+                                FirestorServices.deletDocument(data[index].id);
 
-                            }),
+                              }),
                             );
                           }),
 
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      "Total price"
-                          .text
-                          .fontFamily(semibold)
-                          .color(darkFontGrey)
-                          .make(),
-                      Obx(()=>
-                        "${controller.totalP.value}"
-                            .numCurrency
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        "Total price"
                             .text
                             .fontFamily(semibold)
-                            .color(Colors.red)
+                            .color(darkFontGrey)
                             .make(),
-                      ),
-                    ],
-                  ).box.padding(const EdgeInsets.all(12)).width(context.screenWidth - 60).color(lightGolden).roundedSM.make(),
-                  10.heightBox,
+                        Obx(()=>
+                            "${controller.totalP.value}"
+                                .numCurrency
+                                .text
+                                .fontFamily(semibold)
+                                .color(Colors.red)
+                                .make(),
+                        ),
+                      ],
+                    ).box.padding(const EdgeInsets.all(12)).width(context.screenWidth - 60).color(lightGolden).roundedSM.make(),
+                    10.heightBox,
 
 
-                ],
-              ),
-            );
-          }
-         },
-      )
+                  ],
+                ),
+              );
+            }
+          },
+        )
     );
   }
 }

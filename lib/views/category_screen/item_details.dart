@@ -31,7 +31,7 @@ class ItemDetails extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: ()async {
-      //  controller.resetValues();
+        //  controller.resetValues();
         return false ;
       },
       child: Scaffold(
@@ -39,27 +39,27 @@ class ItemDetails extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             onPressed:(){
-           //   controller.resetValues();
-               Get.back();
-               } ,icon: const Icon(Icons.arrow_back),),
+              //   controller.resetValues();
+              Get.back();
+            } ,icon: const Icon(Icons.arrow_back),),
           title: title!.text.color(darkFontGrey).fontFamily(bold).make(),
           actions: [
             IconButton(onPressed: (){}, icon: const Icon(Icons.share)),
             Obx(()=>
-               IconButton(onPressed: (){
-                if(controller.isFav.value){
-                  controller.removeFromWishlist(data.id,context);
+                IconButton(onPressed: (){
+                  if(controller.isFav.value){
+                    controller.removeFromWishlist(data.id,context);
 
-                }else{
-                  controller.addToWishlist(data.id,context);
+                  }else{
+                    controller.addToWishlist(data.id,context);
 
-                }
+                  }
 
-              }, icon:  Icon(
-                Icons.favorite_outlined ,
-                color: controller.isFav.value? Colors.red : darkFontGrey,
+                }, icon:  Icon(
+                  Icons.favorite_outlined ,
+                  color: controller.isFav.value? Colors.red : darkFontGrey,
 
-              )),
+                )),
             )
 
           ],
@@ -81,8 +81,8 @@ class ItemDetails extends StatelessWidget {
                         viewportFraction : 1.0 ,
                         aspectRatio: 16/9 ,
                         itemBuilder: (context,index){
-                      return Image.network(data['imageURL'][index],width: double.infinity,fit : BoxFit.cover,);
-                    }),
+                          return Image.network(data['imageURL'][index],width: double.infinity,fit : BoxFit.cover,);
+                        }),
                     10.heightBox ,
                     title!.text.size(16).color(darkFontGrey).fontFamily(semibold).make(),
                     10.heightBox ,
@@ -94,8 +94,8 @@ class ItemDetails extends StatelessWidget {
                       normalColor: textfieldGrey,
                       selectionColor: golden,
                       count: 5,
-                    size: 25,
-                    stepInt: true,),
+                      size: 25,
+                      stepInt: true,),
                     10.heightBox,
                     "\$ ${data['price']}".text.fontFamily(bold).color(Colors.red).size(18).make(),
                     Row(
@@ -119,15 +119,15 @@ class ItemDetails extends StatelessWidget {
                           child: Icon(Icons.message_rounded, color: darkFontGrey),
                         ).onTap(() {
 
-                        Get.to(
-                               ()=> const ChatScreen(),
+                          Get.to(
+                                ()=> const ChatScreen(),
 
-                          arguments: [data['brand'], data['added_by']],
-                        );
+                            arguments: [data['brand'], data['added_by']],
+                          );
                         })
                       ],
                     ).box.height(60).padding(const EdgeInsets.symmetric(horizontal: 16)).color(Colors.grey.shade100).make(),
-                     //description Section
+                    //description Section
                     10.heightBox,
                     "Description".text.color(darkFontGrey).fontFamily(semibold).make(),
                     10.heightBox,
@@ -182,35 +182,35 @@ class ItemDetails extends StatelessWidget {
 
             )),
             SizedBox(
-                width: double.infinity,
-                height: 60,
-                child: ourButtom(
-                    color: redColor,
-                    onPress: (){
+              width: double.infinity,
+              height: 60,
+              child: ourButtom(
+                  color: redColor,
+                  onPress: (){
 
-                  if(controller.quantity.value>0){
-                    VxToast.show(context, msg: "Already in the cart");
+                    if(controller.quantity.value>0){
+                      VxToast.show(context, msg: "Already in the cart");
 
-                  }else{
-                    controller.increaseQuantity(context);
-                    controller.addToCart(
+                    }else{
+                      controller.increaseQuantity(context);
+                      controller.addToCart(
 
-                      name: data['name'],
-                      imageURL: data['imageURL'][0],
-                      prop: data['prop'],
-                      price: data['price'],
+                        name: data['name'],
+                        imageURL: data['imageURL'][0],
+                        prop: data['prop'],
+                        price: data['price'],
 
-                      context: context,
-                    );
+                        context: context,
+                      );
 
 
 
-                  }
+                    }
 
-                    },
-                    textColor: whiteColor,
-                    title: "Add to cart "),
-              ),
+                  },
+                  textColor: whiteColor,
+                  title: "Add to cart "),
+            ),
 
           ],
 
