@@ -10,7 +10,8 @@ import '../../widgets_common/custom_textfield.dart';
 import 'package:mobile_v3/controllers/payment_controller.dart';
 
 class ShippingDetails extends StatelessWidget {
-  const ShippingDetails({Key? key}) : super(key: key);
+  final String? totalAmount ;
+  const ShippingDetails( {Key? key,required this.totalAmount}) : super(key: key );
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class ShippingDetails extends StatelessWidget {
 
         title: "Info Card".text.fontFamily(semibold).color(darkFontGrey).make(),
       ),
-      bottomNavigationBar: SizedBox(
+      /*bottomNavigationBar: SizedBox(
         height: 60,
         child: ourButtom(
           onPress: (){
@@ -38,7 +39,7 @@ class ShippingDetails extends StatelessWidget {
           textColor: whiteColor,
           title: "Continue",
         ),
-      ),
+      ),*/
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
@@ -57,7 +58,7 @@ class ShippingDetails extends StatelessWidget {
                 10.heightBox,
                 InkWell(
                   onTap: () {
-                    controller.makePayment(amount: '4', currency: 'USD');
+                    controller.makePayment(amount: totalAmount!, currency: 'USD');
                   },
                   child: Obx(()=> Column(
                       children:

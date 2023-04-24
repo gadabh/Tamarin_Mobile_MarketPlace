@@ -11,6 +11,8 @@ import 'home_controller.dart';
 class PaymentController extends GetxController {
   Map<String, dynamic>? paymentIntentData;
 
+
+
   Future<void> makePayment(
       {required String amount, required String currency}) async {
     try {
@@ -27,14 +29,14 @@ class PaymentController extends GetxController {
               paymentIntentClientSecret: paymentIntentData!['client_secret'],
               customerEphemeralKeySecret: paymentIntentData!['ephemeralKey'],
             ));
-        displayPaymentSheet();
+        displayPaymentSheet(amount);
       }
     } catch (e, s) {
       print('exception:$e$s');
     }
   }
 
-  displayPaymentSheet() async {
+  displayPaymentSheet(String amount) async {
     try {
       await Stripe.instance.presentPaymentSheet();
       Get.snackbar('Payment', 'Payment Successful',
@@ -43,7 +45,7 @@ class PaymentController extends GetxController {
           colorText: Colors.white,
           margin: const EdgeInsets.all(10),
           duration: const Duration(seconds: 2));
-      await placeMyOrder();
+      await placeMyOrder(amount);
 
     } on Exception catch (e) {
       if (e is StripeException) {
@@ -98,7 +100,7 @@ class PaymentController extends GetxController {
   var assets =[];
 
   //validate the order
-  placeMyOrder({totalAmount})async{
+  placeMyOrder(String amount)async{
 
     await getAssetDetails();
 
@@ -113,7 +115,7 @@ class PaymentController extends GetxController {
           'order_by_phone':phoneController.text,
           'order_by_postalCode':postalController.text,
           'payement_method': 'Stripe',
-          'total_amount':totalAmount,
+          'total_amount':amount,
           'order': FieldValue.arrayUnion(assets),
         }
     );

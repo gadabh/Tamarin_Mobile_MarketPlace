@@ -27,7 +27,7 @@ class CartScreen extends StatelessWidget {
          child: ourButtom(
                  color: redColor ,
                  onPress: (){
-                    Get.to(()=>const ShippingDetails());
+                    Get.to(()=> ShippingDetails( totalAmount: ' ${controller.totalP.value}'));
                   } ,
                   textColor: whiteColor ,
                 title: "Checkout"
