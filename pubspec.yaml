@@ -37,6 +37,10 @@ dependencies:
   flutter_stripe: ^2.3.0
   path_provider: ^2.0.14
   permission_handler: ^10.2.0
+  dio: ^5.1.1
+  image_gallery_saver: ^1.7.1
+
+
 
 dev_dependencies:
   flutter_test:
