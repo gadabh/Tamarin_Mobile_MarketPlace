@@ -1,15 +1,12 @@
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:mobile_v3/consts/consts.dart';
 import 'package:intl/intl.dart';
 import 'components/order_place_details.dart';
-
+import 'package:flutter/foundation.dart';
 class OrdersDetails extends StatelessWidget {
   final dynamic data ;
   const OrdersDetails( {Key? key ,this.data}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -113,33 +110,28 @@ class OrdersDetails extends StatelessWidget {
                              ],
                            ),
                          ),
+
                          SizedBox(
                            width: 50 ,
                            child: Column(
+
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
                                20.heightBox,
-                               const Image(image: AssetImage("assets/images/order-icon.png")),
+                               const Image(image: AssetImage("assets/images/order-icon.png"),
+                               ),
 
                              ],
                            ),
                          ),
-
                        ],
-
                      ),
                    );
                }).toList(),
-
              )
-
           ],
         ),
       ),
-
-
-
-
     );
   }
 }

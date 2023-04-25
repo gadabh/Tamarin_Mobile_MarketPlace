@@ -35,9 +35,8 @@ dependencies:
   cloud_firestore: ^4.5.1
   image_picker: ^0.8.7+3
   flutter_stripe: ^2.3.0
-  http: ^0.13.5
-  flutter_bloc: ^8.1.2
-  equatable: ^2.0.5
+  path_provider: ^2.0.14
+  permission_handler: ^10.2.0
 
 dev_dependencies:
   flutter_test:

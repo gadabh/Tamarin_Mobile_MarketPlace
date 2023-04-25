@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -12,6 +13,7 @@ void main() async {
   Stripe.publishableKey =stripePublishableKey;
   Stripe.merchantIdentifier = 'any string works';
   await Stripe.instance.applySettings();
+
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
