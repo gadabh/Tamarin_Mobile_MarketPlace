@@ -1,11 +1,22 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_v3/consts/consts.dart';
 import 'package:intl/intl.dart';
 import 'components/order_place_details.dart';
 import 'package:flutter/foundation.dart';
-class OrdersDetails extends StatelessWidget {
+
+import 'package:url_launcher/url_launcher.dart';
+
+class OrdersDetails extends StatefulWidget {
   final dynamic data ;
   const OrdersDetails( {Key? key ,this.data}) : super(key: key);
+
+  @override
+  State<OrdersDetails> createState() => _OrdersDetailsState();
+}
+
+class _OrdersDetailsState extends State<OrdersDetails> {
+
 
 
   @override
@@ -23,17 +34,18 @@ class OrdersDetails extends StatelessWidget {
           children: [
             Column(
               children: [
-                 const Image(image: AssetImage("assets/images/order-icon.png")),
+                const Image(image: AssetImage("assets/images/order-icon.png")),
+
                 const Divider(),
 
                 orderPlaceDetails(
-                    d1:data["order_code"] ,
-                    d2: data["payement_method"],
+                    d1:widget.data["order_code"] ,
+                    d2: widget.data["payement_method"],
                     title1 :"Order Code",
                     title2 :"Payement Method",
                 ),
                 orderPlaceDetails(
-                  d1:DateFormat().add_yMd().format((data["order_date"].toDate())),
+                  d1:DateFormat().add_yMd().format((widget.data["order_date"].toDate())),
                   d2:"PAYED",
                   title1 :"Order Date",
                   title2: "State",
@@ -48,13 +60,13 @@ class OrdersDetails extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                          "Adress".text.fontFamily(semibold).make(),
-                          "${data["order_by_name"]}".text.make(),
-                          "${data["order_by_email"]}".text.make(),
-                          "${data["order_by_adress"]}".text.make(),
-                          "${data["order_by_city"]}".text.make(),
-                          "${data["order_by_state"]}".text.make(),
-                          "${data["order_by_phone"]}".text.make(),
-                          "${data["order_by_postalCode"]}".text.make(),
+                          "${widget.data["order_by_name"]}".text.make(),
+                          "${widget.data["order_by_email"]}".text.make(),
+                          "${widget.data["order_by_adress"]}".text.make(),
+                          "${widget.data["order_by_city"]}".text.make(),
+                          "${widget.data["order_by_state"]}".text.make(),
+                          "${widget.data["order_by_phone"]}".text.make(),
+                          "${widget.data["order_by_postalCode"]}".text.make(),
                         ],
                       ),
                       SizedBox(
@@ -64,7 +76,7 @@ class OrdersDetails extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             "Total Amount".text.fontFamily(semibold).make(),
-                            "${data["total_amount"]}".text.color(Colors.red).fontFamily(bold).make(),
+                            "${widget.data["total_amount"]}".text.color(Colors.red).fontFamily(bold).make(),
                           ],
                         ),
                       )
@@ -81,7 +93,7 @@ class OrdersDetails extends StatelessWidget {
              ListView(
                shrinkWrap: true,
                children:
-               List.generate(data['order'].length, (index){
+               List.generate(widget.data['order'].length, (index){
                    return
                    Padding(
                      padding: const EdgeInsets.symmetric(horizontal: 16.0 ,vertical: 8),
@@ -94,7 +106,7 @@ class OrdersDetails extends StatelessWidget {
                            children: [
                              20.heightBox,
                              "Asset Name".text.fontFamily(semibold).make(),
-                             "${data['order'][index]['name']}".text.color(Colors.red).fontFamily(semibold).make(),
+                             "${widget.data['order'][index]['name']}".text.color(Colors.red).fontFamily(semibold).make(),
 
                            ],
                          ),
@@ -105,25 +117,36 @@ class OrdersDetails extends StatelessWidget {
                              children: [
                                20.heightBox,
                                "Owner Name".text.fontFamily(semibold).make(),
-                               "${data['order'][index]['prop']}".text.color(Colors.red).fontFamily(semibold).make(),
+                               "${widget.data['order'][index]['prop']}".text.color(Colors.red).fontFamily(semibold).make(),
 
                              ],
                            ),
                          ),
-
                          SizedBox(
-                           width: 50 ,
+                           width: 130 ,
                            child: Column(
-
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
                                20.heightBox,
-                               const Image(image: AssetImage("assets/images/order-icon.png"),
-                               ),
+                             Row(
+                               mainAxisSize: MainAxisSize.min,
+                               children:  [
+                                 const Icon(Icons.file_download),
+                                 RichText(
+                                 text:
+                                  TextSpan(
+                                    text: 'Download',
+                                    style:  const TextStyle(color: Colors.blue),
+                                    recognizer:  TapGestureRecognizer() ..onTap = ()
+                                    {
+                                      launch("${widget.data['order'][index]['sourceURL']}");
+                                      }, ), )], ),
 
                              ],
                            ),
                          ),
+
+
                        ],
                      ),
                    );
