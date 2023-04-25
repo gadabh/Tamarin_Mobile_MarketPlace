@@ -31,6 +31,7 @@ class _OrdersDetailsState extends State<OrdersDetails> {
       ),
 
       body:  SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
             Column(
@@ -127,6 +128,7 @@ class _OrdersDetailsState extends State<OrdersDetails> {
 
 
 
+
                          Column(
                            crossAxisAlignment: CrossAxisAlignment.center,
                            children: [
@@ -144,20 +146,42 @@ class _OrdersDetailsState extends State<OrdersDetails> {
                                   {
                                     launch("${widget.data['order'][index]['sourceURL']}");
                                     }, ), )], ),
-
                            ],
                          ),
                          20.heightBox,
+                         const  Divider( height: 20,
+                           thickness: 2,
+                           indent: 20,
+                           endIndent: 0,
+                           color: Colors.black12,),
 
-                         Divider(),
+
                        ],
+
                      ),
                    );
                }).toList(),
-             )
+
+             ).box.outerShadowMd.white.margin(const EdgeInsets.only(bottom: 4)).make(),
+
+
+            20.heightBox,
+            orderPlaceDetails(
+              d1:widget.data["total_amount"] ,
+              d2: "",
+              title1 :"TOTAL : ",
+              title2 :"",
+            ),
+            20.heightBox,
+            Divider()
+
+
+
           ],
-        ).box.make(),
+        ).box.outerShadowMd.white.margin(const EdgeInsets.only(bottom: 4)).make(),
+
       ),
+
     );
   }
 }

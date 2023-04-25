@@ -30,8 +30,29 @@ class WishListScreen extends StatelessWidget {
             return "No WishList yet !".text.color(darkFontGrey).makeCentered();
 
           }else{
-            return Container(
+            var data =snapshot.data!.docs;
+            return   Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                      itemCount : data.length ,
 
+                      itemBuilder: (BuildContext context , int index ){
+                        return ListTile(
+                          leading: Image.network("${data[index]['imageURL'][0]}" ,fit: BoxFit.cover, height: 100 ,width: 100,),
+                          title:"${data[index]['name']}".text.fontFamily(semibold).size(16).color(darkFontGrey).make(),
+                          subtitle: "${data[index]['price']}".numCurrency.text.color(Colors.red).fontFamily(semibold).make(),
+                          trailing: const Icon(Icons.favorite , color: Colors.red)
+                              .onTap(() async {
+
+
+
+                          }),
+                        );
+                      }),
+                ),
+              ],
             );
           }
         },
