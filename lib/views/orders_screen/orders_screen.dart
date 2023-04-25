@@ -30,9 +30,20 @@ class OrdersScreen extends StatelessWidget {
               return "No orders yet !".text.color(darkFontGrey).makeCentered();
 
           }else{
-            return Container(
+            var data=snapshot.data!.docs;
+            return
+                ListView.builder(
+                    itemCount: data.length,
+                  itemBuilder: (BuildContext context ,int index){
+                      return ListTile(
+                        title: data[index]['order_code'].toString().text.color(redColor).fontFamily(semibold).make(),
+                        subtitle:data[index]['total_amount'].toString().numCurrency.text.color(darkFontGrey).fontFamily(bold).make(),
 
-            );
+                      );
+                  },
+
+                );
+
           }
         },
       ),

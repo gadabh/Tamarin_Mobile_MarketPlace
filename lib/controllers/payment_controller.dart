@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -102,7 +103,7 @@ class PaymentController extends GetxController {
 
   late dynamic assetSnapshot ;
   var assets =[];
-
+  Random random = Random();
   //validate the order
   placeMyOrder(String amount)async{
 
@@ -110,7 +111,9 @@ class PaymentController extends GetxController {
 
     await firestore.collection(ordersCollection).doc().set(
         {
+          'order_code':random.nextInt(90000),
           'order_by': currentUser!.uid,
+          'order_date': FieldValue.serverTimestamp(),
           'order_by_name': Get.find<HomeController>().username,
           'order_by_email': currentUser!.email,
           'order_by_adress': addressController.text,
