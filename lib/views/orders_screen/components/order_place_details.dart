@@ -20,7 +20,7 @@ Widget orderPlaceDetails ({d1, d2, title1, title2}){
             children: [
               20.heightBox,
               "$title1".text.fontFamily(semibold).make(),
-              "$d1".text.color(Colors.red).fontFamily(semibold).make(),
+              "$d1".text.color(Colors.black45).fontFamily(semibold).make(),
 
             ],
           ),
@@ -31,7 +31,7 @@ Widget orderPlaceDetails ({d1, d2, title1, title2}){
               children: [
                 20.heightBox,
                 "$title2".text.fontFamily(semibold).make(),
-                "$d2".text.color(Colors.red).fontFamily(semibold).make(),
+                "$d2".text.color(Colors.black45).fontFamily(semibold).make(),
 
               ],
             ),
