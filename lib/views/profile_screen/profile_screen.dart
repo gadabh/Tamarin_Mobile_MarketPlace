@@ -12,10 +12,13 @@ import 'package:mobile_v3/consts/listes.dart';
 import 'package:mobile_v3/controllers/auth_controller.dart';
 import 'package:mobile_v3/controllers/profil_controller.dart';
 import 'package:mobile_v3/services/firestore_services.dart';
+import 'package:mobile_v3/views/orders_screen/orders_screen.dart';
 import 'package:mobile_v3/views/profile_screen/components/details_card.dart';
 import 'package:mobile_v3/views/profile_screen/edit_profile_screen.dart';
 
+import '../Wishlist_screen/wishlist.dart';
 import '../auth_screen/login_screen.dart';
+import '../chat_screen/messaging_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -123,6 +126,20 @@ class ProfileScreen extends StatelessWidget {
                       itemCount: profileButtonList.length,
                       itemBuilder: (BuildContext context , int index){
                         return ListTile(
+                          onTap: (){
+                            switch (index){
+                              case 0 :
+                                Get.to(()=>OrdersScreen());
+                                break;
+                              case 1 :
+                                Get.to(()=>WishListScreen());
+                                break;
+                              case 2:
+                                Get.to(()=>MessegesScreen());
+                                break;
+
+                            }
+                          },
 
                             leading: Image.asset(
                               profileButtonIcon[index] ,
