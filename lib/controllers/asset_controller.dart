@@ -23,10 +23,10 @@ class AssetController extends GetxController{
     }
   }
   addToCart({
-    name , imageURL , prop , price ,context,
+    name , imageURL , prop , price ,context,  sourceURL,
   })async{
     await firestore.collection(cartCollection).doc().set({
-
+      'sourceURL':sourceURL,
       'name' :name ,
       'imageURL': imageURL ,
       'prop': prop ,

@@ -11,6 +11,7 @@ import 'package:mobile_v3/controllers/payment_controller.dart';
 
 class ShippingDetails extends StatelessWidget {
   final String? totalAmount ;
+
   const ShippingDetails( {Key? key,required this.totalAmount}) : super(key: key );
 
   @override
@@ -25,95 +26,84 @@ class ShippingDetails extends StatelessWidget {
 
         title: "Info Card".text.fontFamily(semibold).color(darkFontGrey).make(),
       ),
-      /*bottomNavigationBar: SizedBox(
-        height: 60,
-        child: ourButtom(
-          onPress: (){
-            if(controller.addressController.text.length>10){
-              controller.placeMyOrder();
-            }else{
-              VxToast.show(context, msg: "Please fill the form");
-            }
-          } ,
-          color: redColor,
-          textColor: whiteColor,
-          title: "Continue",
-        ),
-      ),*/
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          children: [
 
-            costumTextField(hint: 'Address' , isPass: false , title: "Address" , controller: controller.addressController),
-            costumTextField(hint: 'City',isPass: false ,title: 'City', controller: controller.cityController),
-            costumTextField(hint: 'State',isPass: false ,title: 'State', controller: controller.stateController),
-            costumTextField(hint: 'Postal Code',isPass: false,title: 'Postal Code', controller: controller.postalController),
-            costumTextField(hint: 'Phone',isPass: false,title: "Phone", controller: controller.phoneController),
-            20.heightBox,
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                "Choose Payement Method".text.fontFamily(semibold).color(darkFontGrey).size(20).make(),
-                10.heightBox,
-                InkWell(
-                  onTap: () {
-                    controller.makePayment(amount: totalAmount!, currency: 'USD');
-                  },
-                  child: Obx(()=> Column(
-                    children:
-                    List.generate(payementMethodsImg.length,(index){
-                      return GestureDetector(
-                        onTap: ccontroller.changePayementIndex(index),
-                        child: Container(
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
-                                color:  ccontroller.payementIndex.value ==index? redColor: Colors.transparent,
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  color: redColor,
-                                  width: 4,
-                                )
-                            ),
-                            margin: const EdgeInsets.only(bottom: 8),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            children: [
 
 
-                            child: Stack(
-                                alignment: Alignment.topRight,
-                                children: [
-                                  Image.asset(payementMethodsImg[index],width: double.infinity,height: 100,
-                                    fit: BoxFit.cover,),
-                                  ccontroller.payementIndex.value==index?
-                                  Transform.scale(
-                                    scale: 1.3,
+              costumTextField(hint: 'Address' , isPass: false , title: "Address" , controller: controller.addressController),
+              costumTextField(hint: 'City',isPass: false ,title: 'City', controller: controller.cityController),
+              costumTextField(hint: 'State',isPass: false ,title: 'State', controller: controller.stateController),
+              costumTextField(hint: 'Postal Code',isPass: false,title: 'Postal Code', controller: controller.postalController),
+              costumTextField(hint: 'Phone',isPass: false,title: "Phone", controller: controller.phoneController),
+              20.heightBox,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  "Choose Payement Method".text.fontFamily(semibold).color(darkFontGrey).size(20).make(),
+                  10.heightBox,
+                  InkWell(
+                    onTap: () {
+                      controller.makePayment(amount: totalAmount!, currency: 'USD');
+                    },
+                    child: Obx(()=> Column(
+                      children:
+                      List.generate(payementMethodsImg.length,(index){
+                        return GestureDetector(
+                          onTap: ccontroller.changePayementIndex(index),
+                          child: Container(
+                              clipBehavior: Clip.antiAlias,
+                              decoration: BoxDecoration(
+                                  color:  ccontroller.payementIndex.value ==index? redColor: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: redColor,
+                                    width: 4,
+                                  )
+                              ),
+                              margin: const EdgeInsets.only(bottom: 8),
 
-                                    child: Checkbox(
-                                        activeColor: Colors.green,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(50),
-                                        ),value: true, onChanged: (value){
 
-                                    }
-                                    ),
-                                  ):Container(),
+                              child: Stack(
+                                  alignment: Alignment.topRight,
+                                  children: [
+                                    Image.asset(payementMethodsImg[index],width: double.infinity,height: 100,
+                                      fit: BoxFit.cover,),
+                                    ccontroller.payementIndex.value==index?
+                                    Transform.scale(
+                                      scale: 1.3,
 
-                                ]
-                            )
+                                      child: Checkbox(
+                                          activeColor: Colors.green,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(50),
+                                          ),value: true, onChanged: (value){
 
-                        ),
-                      );
+                                      }
+                                      ),
+                                    ):Container(),
+
+                                  ]
+                              )
+
+                          ),
+                        );
 
 
-                    }
+                      }
 
 
+                      ),
                     ),
-                  ),
-                  ),
-                )
-              ],
-            ),
-          ],
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

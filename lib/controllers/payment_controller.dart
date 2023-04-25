@@ -31,7 +31,7 @@ class PaymentController extends GetxController {
               paymentIntentClientSecret: paymentIntentData!['client_secret'],
               customerEphemeralKeySecret: paymentIntentData!['ephemeralKey'],
             ));
-        displayPaymentSheet(amount);
+        displayPaymentSheet(amount );
       }
     } catch (e, s) {
       print('exception:$e$s');
@@ -133,6 +133,7 @@ class PaymentController extends GetxController {
     assets.clear();
     for(var i=0;i< assetSnapshot.length ; i++){
       assets.add({
+        'sourceURL':assetSnapshot[i]['sourceURL'],
         'name':assetSnapshot[i]['name'],
         'imageURL':assetSnapshot[i]['imageURL'],
         'prop':assetSnapshot[i]['prop'],

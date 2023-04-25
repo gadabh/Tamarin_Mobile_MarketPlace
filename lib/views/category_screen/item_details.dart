@@ -186,14 +186,12 @@ class ItemDetails extends StatelessWidget {
               height: 60,
               child: ourButtom(
                   color: redColor,
+
                   onPress: (){
 
-                    if(controller.quantity.value>0){
-                      VxToast.show(context, msg: "Already in the cart");
-
-                    }else{
                       controller.increaseQuantity(context);
                       controller.addToCart(
+                        sourceURL:data['sourceURL'],
 
                         name: data['name'],
                         imageURL: data['imageURL'][0],
@@ -203,11 +201,8 @@ class ItemDetails extends StatelessWidget {
                         context: context,
                       );
 
+                    },
 
-
-                    }
-
-                  },
                   textColor: whiteColor,
                   title: "Add to cart "),
             ),

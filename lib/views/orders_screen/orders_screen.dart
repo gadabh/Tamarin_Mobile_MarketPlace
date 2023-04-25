@@ -10,6 +10,7 @@ import 'package:mobile_v3/consts/consts.dart';
 import 'package:mobile_v3/services/firestore_services.dart';
 
 import '../category_screen/loading_indicator.dart';
+import 'orders_details.dart';
 
 class OrdersScreen extends StatelessWidget {
   const OrdersScreen({Key? key}) : super(key: key);
@@ -36,9 +37,18 @@ class OrdersScreen extends StatelessWidget {
                     itemCount: data.length,
                   itemBuilder: (BuildContext context ,int index){
                       return ListTile(
+                        leading: "${index +1}".text.fontFamily(bold).color(darkFontGrey).xl.make(),
                         title: data[index]['order_code'].toString().text.color(redColor).fontFamily(semibold).make(),
                         subtitle:data[index]['total_amount'].toString().numCurrency.text.color(darkFontGrey).fontFamily(bold).make(),
+                        trailing: IconButton(onPressed: (){
+                          Get.to(()=>OrdersDetails(data:data[index]));
 
+                        },
+                        icon: const Icon(
+                          Icons.arrow_forward_ios_rounded ,
+                          color: darkFontGrey,
+                        ),
+                        ),
                       );
                   },
 

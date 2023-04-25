@@ -21,18 +21,10 @@ class CartScreen extends StatelessWidget {
     var controller = Get.put(CartController());
     var ccontroller = Get.put(AssetController());
     var pcontroller = Get.put(PaymentController());
+
     return  Scaffold(
-        bottomNavigationBar: SizedBox(
-          height: 60,
-          child: ourButtom(
-              color: redColor ,
-              onPress: (){
-                Get.to(()=> ShippingDetails( totalAmount: ' ${controller.totalP.value}'));
-              } ,
-              textColor: whiteColor ,
-              title: "Checkout"
-          ),
-        ) ,
+
+
         backgroundColor: whiteColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -102,6 +94,18 @@ class CartScreen extends StatelessWidget {
                       ],
                     ).box.padding(const EdgeInsets.all(12)).width(context.screenWidth - 60).color(lightGolden).roundedSM.make(),
                     10.heightBox,
+                    SizedBox(
+                      height: 60,
+                      width: double.infinity,
+                      child: ourButtom(
+                          color: redColor ,
+                          onPress: (){
+                            Get.to(()=> ShippingDetails(totalAmount: ' ${controller.totalP.value}'));
+                            } ,
+                          textColor: whiteColor ,
+                          title: "Checkout"
+                      ),
+                    ) ,
 
 
                   ],
@@ -109,7 +113,9 @@ class CartScreen extends StatelessWidget {
               );
             }
           },
+
         )
+
     );
   }
 }
