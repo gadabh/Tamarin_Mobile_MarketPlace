@@ -68,6 +68,7 @@ class CartScreen extends StatelessWidget {
                               trailing: const Icon(Icons.delete , color: Colors.red)
                                   .onTap(() async {
                                 ccontroller.decreaseQuantity(context);
+
                                 FirestorServices.deletDocument(data[index].id);
 
                               }),

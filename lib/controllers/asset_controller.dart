@@ -34,10 +34,20 @@ class AssetController extends GetxController{
       'added_by' : currentUser!.uid,
 
 
-    }).catchError((error){
+    }
+
+    ).catchError((error){
+
       VxToast.show(context, msg: error.toString());
     });
+    iscart(true);
   }
+  rmFromCart(docId)async{
+    await firestore.collection(cartCollection).doc(docId).delete();
+
+    iscart(false);
+  }
+
 
   addToWishlist(docId,context)async{
     await firestore.collection(assetCollection).doc(docId).set({
@@ -63,6 +73,9 @@ class AssetController extends GetxController{
 
 
 
+
+
+
   checkIfFav(data)async{
     if(data['wishlist'].contains(currentUser!.uid)){
       isFav(true);
@@ -80,6 +93,8 @@ class AssetController extends GetxController{
 
     quantity.value--;
   }
+
+
 
 
 

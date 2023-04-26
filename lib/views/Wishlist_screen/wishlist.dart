@@ -45,9 +45,9 @@ class WishListScreen extends StatelessWidget {
                           subtitle: "${data[index]['price']}".numCurrency.text.color(Colors.red).fontFamily(semibold).make(),
                           trailing: const Icon(Icons.favorite , color: Colors.red)
                               .onTap(() async {
-
-
-
+                               await firestore.collection(assetCollection).doc(data[index].id).set({
+                                 'wishlist':FieldValue.arrayRemove([currentUser!.uid])
+                               },SetOptions(merge: true));
                           }),
                         );
                       }),

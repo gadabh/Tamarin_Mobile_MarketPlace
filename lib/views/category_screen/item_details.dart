@@ -15,6 +15,7 @@ import 'package:mobile_v3/views/chat_screen/chat_screen.dart';
 import 'package:mobile_v3/widgets_common/our_buttom.dart';
 
 import '../../controllers/asset_controller.dart';
+import '../../services/firestore_services.dart';
 
 
 class ItemDetails extends StatelessWidget {
@@ -186,9 +187,7 @@ class ItemDetails extends StatelessWidget {
               height: 60,
               child: ourButtom(
                   color: redColor,
-
                   onPress: (){
-
                       controller.increaseQuantity(context);
                       controller.addToCart(
                         sourceURL:data['sourceURL'],
@@ -200,15 +199,11 @@ class ItemDetails extends StatelessWidget {
 
                         context: context,
                       );
-
                     },
-
                   textColor: whiteColor,
-                  title: "Add to cart "),
-            ),
-
+                  title:controller.iscart.value ?"Deleat from Cart " : "Add to cart "),
+            ) ,
           ],
-
         ),
       ),
     );
