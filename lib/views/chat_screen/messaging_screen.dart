@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_v3/consts/consts.dart';
 import 'package:mobile_v3/services/firestore_services.dart';
+import 'package:mobile_v3/views/chat_screen/chat_screen.dart';
 
 import '../category_screen/loading_indicator.dart';
 
@@ -33,8 +34,39 @@ class MessegesScreen extends StatelessWidget {
             return "No Messages yet !".text.color(darkFontGrey).makeCentered();
 
           }else{
-            return Container(
+            var data = snapshot.data!.docs;
+            return  Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Expanded(
+                      child: ListView.builder(
+                          itemCount: data.length,
+                      itemBuilder: (BuildContext context , int index){
+                      return Card(
+                        child: ListTile(
+                          onTap: (){
+                            Get.to(()=>ChatScreen(),
+                                arguments: [data[index]['receiver_name'].toString(),
+                                  data[index]['toId'].toString()],);
+                          },
+                          leading: const CircleAvatar(
+                            backgroundColor: redColor,
+                            child: Icon(
+                              Icons.person,
+                              color: whiteColor,
 
+                            ),
+                          ),
+                          title: "${data[index]['receiver_name']}".text.fontFamily(semibold).color(darkFontGrey).make(),
+                          subtitle: "${data[index]['last_msg']}".text.fontFamily(semibold).color(darkFontGrey).make(),
+                        ),
+                      );
+
+                      }))
+                ],
+
+              ),
             );
           }
         },

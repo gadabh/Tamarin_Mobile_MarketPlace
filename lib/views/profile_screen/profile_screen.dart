@@ -12,6 +12,7 @@ import 'package:mobile_v3/consts/listes.dart';
 import 'package:mobile_v3/controllers/auth_controller.dart';
 import 'package:mobile_v3/controllers/profil_controller.dart';
 import 'package:mobile_v3/services/firestore_services.dart';
+import 'package:mobile_v3/views/category_screen/loading_indicator.dart';
 import 'package:mobile_v3/views/orders_screen/orders_screen.dart';
 import 'package:mobile_v3/views/profile_screen/components/details_card.dart';
 import 'package:mobile_v3/views/profile_screen/edit_profile_screen.dart';
@@ -26,6 +27,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller  = Get.put(ProfileController());
+    FirestorServices.getCounts();
     return
       Scaffold(
           backgroundColor: Colors.white,
@@ -109,15 +111,32 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                     20.heightBox,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        detailsCard(count: data['cart_count'], title: "in your cart", width: context.screenWidth/3.4),
-                        detailsCard(count: data['wishlist_count'], title: "in your Wishliste", width: context.screenWidth/3.4),
-                        detailsCard(count: data['order_count'] , title: "your order", width: context.screenWidth/3.4),
 
-                      ],
-                    ),
+                    FutureBuilder(
+                        future: FirestorServices.getCounts(),
+                        builder: (BuildContext context , AsyncSnapshot snapshot){
+                          if(!snapshot.hasData){
+                            return loadingIndicator();
+                          }else {
+                            var countdata = snapshot.data ;
+
+                            return  Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                detailsCard(count: countdata[0].toString(), title: "in your cart", width: context.screenWidth/3.4),
+                                detailsCard(count: countdata[1].toString(), title: "in your Wishliste", width: context.screenWidth/3.4),
+                                detailsCard(count: countdata[2].toString() , title: "your order", width: context.screenWidth/3.4),
+
+                              ],
+                            );
+                          }
+
+
+                    }),
+
+
+
+
                     ListView.separated(
                       shrinkWrap: true,
                       separatorBuilder: ( context,  index) {

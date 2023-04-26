@@ -59,20 +59,22 @@ class FirestorServices {
         .snapshots();
   }
 
+  static getCounts() async {
+    var res = await Future.wait([
+      firestore.collection(cartCollection).where('added_by', isEqualTo: currentUser!.uid
+    ).get().then((value) {return value.docs.length ;}),
 
+      firestore.collection(assetCollection)
+          .where('wishlist',arrayContains: currentUser!.uid).get().then((value)
+      {return value.docs.length ;}),
 
+      firestore.collection(ordersCollection)
+          .where('order_by',isEqualTo: currentUser!.uid).get().then((value)
+      {return value.docs.length ;}),
 
+    ]
+    );
+    return res ;
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-}
+  }
