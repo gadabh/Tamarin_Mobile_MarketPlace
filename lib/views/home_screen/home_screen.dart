@@ -53,19 +53,8 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   children: [
 
-                    VxSwiper.builder(
-                        aspectRatio: 16/9,
-                        autoPlay: true,
-                        height: 200,
-                        enlargeCenterPage: true,
-                        itemCount: slidersList.length, itemBuilder: (context,index){
-                      return Image.asset(
-                          slidersList[index],
-                          fit : BoxFit.fill
-                      ).box.rounded.clip(Clip.antiAlias).margin(const EdgeInsets.symmetric(horizontal: 5)).make();
-                    }
-                    ),
-                    10.heightBox,
+
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children:
@@ -79,8 +68,35 @@ class HomeScreen extends StatelessWidget {
 
                     ),
 
+                    20.heightBox,
+
+                    Align(
+                        alignment : Alignment.centerLeft,
+                        child: featuredCategories.text.color(darkFontGrey).size(18).fontFamily(semibold).make()),
                     10.heightBox,
-                  Row(
+                    //Featured  categories
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children:
+                          List.generate(
+                              3, (index) =>Column(
+                                children: [
+                                  Column(
+                                    children: [
+                                    featuredButton(icon: featuredImages1[index] ,
+                                        title: featuredTitles1[index]
+                                    ),
+                                    10.heightBox,
+                                    featuredButton(icon: featuredImages2[index] ,
+                                        title: featuredTitles2[index]
+                                       ),
+                                    ],),],
+                              ),).toList(),
+                      ),
+                    ),
+                    20.heightBox,
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children:
                       List.generate(3, (index) => homeButtons(
@@ -93,31 +109,6 @@ class HomeScreen extends StatelessWidget {
 
                     ),
                     20.heightBox,
-                    Align(
-                        alignment : Alignment.centerLeft,
-                        child: featuredCategories.text.color(darkFontGrey).size(18).fontFamily(semibold).make()),
-                    20.heightBox,
-                    //Featured  categories
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children:
-                          List.generate(
-                              3, (index) =>Column(
-                                children: [
-                                  Column(
-                                    children: [
-                                    featuredButton(icon: featuredImages1[index] ,
-                                        //title: featuredTitles1[index]
-                                    ),
-                                    10.heightBox,
-                                    featuredButton(icon: featuredImages2[index] ,
-                                        //title: featuredTitles2[index]
-                                       ),
-                                    ],),],
-                              ),).toList(),
-                      ),
-                    ),
 
                     //featured Asset
                     20.heightBox,
@@ -157,9 +148,6 @@ class HomeScreen extends StatelessWidget {
                                         Image.network(featuredData[index]['imageURL'][0], width: 170,height: 120,fit: BoxFit.cover),
                                         10.heightBox,
 
-
-
-
                                         (() {
                                           String shortenName = featuredData[index]['name'];
                                           if (shortenName.length > 15) {
@@ -167,15 +155,6 @@ class HomeScreen extends StatelessWidget {
                                           }
                                           return shortenName;
                                         })().text.fontFamily(semibold).color(darkFontGrey).make(),
-
-
-
-
-
-
-
-
-
 
 
                                         10.heightBox,
@@ -200,19 +179,21 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ) ,
                     ),
-                    10.heightBox,
+                    20.heightBox,
                     VxSwiper.builder(
                         aspectRatio: 16/9,
                         autoPlay: true,
-                        height: 150,
+                        height: 200,
                         enlargeCenterPage: true,
-                        itemCount: secondSlidersList.length, itemBuilder: (context,index){
+                        itemCount: slidersList.length, itemBuilder: (context,index){
                       return Image.asset(
-                          secondSlidersList[index],
+                          slidersList[index],
                           fit : BoxFit.fill
                       ).box.rounded.clip(Clip.antiAlias).margin(const EdgeInsets.symmetric(horizontal: 5)).make();
                     }
                     ),
+
+
 
                     //ALL ASSETS
                     20.heightBox,
@@ -228,12 +209,13 @@ class HomeScreen extends StatelessWidget {
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: allassetsdata.length,
-                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,mainAxisExtent: 300 ,crossAxisSpacing: 8,mainAxisSpacing: 8),
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount:2,mainAxisExtent: 200 ,crossAxisSpacing: 8,mainAxisSpacing: 8),
                               itemBuilder: ( context,  index){
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Image.network("${allassetsdata[index]['imageURL'][0]}", width: 200, height: 200,fit: BoxFit.cover),
+                                    Image.network("${allassetsdata[index]['imageURL'][0]}", width: 200, height: 120,fit: BoxFit.cover),
                                     const  Spacer(),
 
 
@@ -244,10 +226,6 @@ class HomeScreen extends StatelessWidget {
                                       }
                                       return shortenName;
                                     })().text.fontFamily(semibold).color(darkFontGrey).make(),
-
-
-
-
 
                                     10.heightBox,
 
