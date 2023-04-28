@@ -78,8 +78,26 @@ class CategoryDetails extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Image.network(data[index]['imageURL'][0], width: 200, height: 150,fit: BoxFit.cover),
-                                      "${data[index]['name']}".text.fontFamily(semibold).color(darkFontGrey).make(),
+
+
+                                      (() {
+                                        String shortenName = data[index]['name'];
+                                        if (shortenName.length > 15) {
+                                          shortenName = shortenName.substring(0, 15) + '...';
+                                        }
+                                        return shortenName;
+                                      })().text.fontFamily(semibold).color(darkFontGrey).make(),
+
+
+
+
+
                                       10.heightBox,
+
+                                      data[index]['price']==0 ?
+                                      "Free".text.fontFamily(bold).color(Colors.green).size(16).make()
+                                          :
+
                                       "\$ ${data[index]['price']}".text.fontFamily(bold).color(Colors.green).size(16).make(),
 
 

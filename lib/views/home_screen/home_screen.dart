@@ -1,15 +1,27 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mobile_v3/consts/consts.dart';
 import 'package:mobile_v3/consts/listes.dart';
+import 'package:mobile_v3/services/firestore_services.dart';
+import 'package:mobile_v3/views/category_screen/item_details.dart';
+import 'package:mobile_v3/views/category_screen/loading_indicator.dart';
 import 'package:mobile_v3/views/home_screen/components/featured_button.dart';
 import 'package:mobile_v3/widgets_common/home_buttons.dart';
-import 'package:mobile_v3/views/home_screen/components/featured_button.dart';
+
+import '../../controllers/asset_controller.dart';
+
 class HomeScreen extends StatelessWidget {
+
+
   const HomeScreen ({Key? key}) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(AssetController());
     return Container(
       padding: const EdgeInsets.all(12),
       color: lightGrey,
@@ -50,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                       return Image.asset(
                           slidersList[index],
                           fit : BoxFit.fill
-                      ).box.rounded.clip(Clip.antiAlias).margin(EdgeInsets.symmetric(horizontal: 5)).make();
+                      ).box.rounded.clip(Clip.antiAlias).margin(const EdgeInsets.symmetric(horizontal: 5)).make();
                     }
                     ),
                     10.heightBox,
@@ -122,23 +134,67 @@ class HomeScreen extends StatelessWidget {
                           10.heightBox,
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children:
-                                List.generate(6, (index) => Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Image.asset(imgP1, width: 170,fit: BoxFit.cover),
-                                    10.heightBox,
-                                    "Amphibious for Blender 2.8".text.fontFamily(semibold).color(darkFontGrey).make(),
-                                    10.heightBox,
-                                    "Free".text.fontFamily(bold).color(Colors.green).size(16).make(),
+                            child: FutureBuilder(
+                              future: FirestorServices.getfeaturedAssets(),
+
+                              builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
+
+                                if(!snapshot.hasData) {
+                                  return Center(
+                                    child: loadingIndicator(),
+                                  );
+                                }else if ( snapshot.data!.docs.isEmpty){
+                                  return "No Featured Assets ".text.white.makeCentered();
+                                }
+                                else{
+                                  var featuredData= snapshot.data!.docs;
+
+                                  return Row(
+                                    children:
+                                    List.generate(featuredData.length, (index) => Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Image.network(featuredData[index]['imageURL'][0], width: 170,height: 120,fit: BoxFit.cover),
+                                        10.heightBox,
 
 
-                                  ],
-                                ).box.white.roundedSM.margin(EdgeInsets.symmetric(horizontal: 4)).padding(const EdgeInsets.all(8)).make()
-                                ),
 
 
+                                        (() {
+                                          String shortenName = featuredData[index]['name'];
+                                          if (shortenName.length > 15) {
+                                            shortenName = shortenName.substring(0, 15) + '...';
+                                          }
+                                          return shortenName;
+                                        })().text.fontFamily(semibold).color(darkFontGrey).make(),
+
+
+
+
+
+
+
+
+
+
+
+                                        10.heightBox,
+                                      featuredData[index]['price']==0 ?
+                                      "Free".text.fontFamily(bold).color(Colors.green).size(16).make()
+                                        :
+                                      "\$ ${featuredData[index]['price']}".text.fontFamily(bold).color(Colors.green).size(16).make()
+                                      ],
+                                    ).box.white.roundedSM.margin(const EdgeInsets.symmetric(horizontal: 4)).padding(const EdgeInsets.all(8))
+                                        .make().onTap(() {
+                                      Get.to(()=>ItemDetails(
+                                          title:"${featuredData[index]['name']}",
+                                          data:featuredData[index]));
+                                    })
+                                    ),
+                                  );
+                                }
+
+                              }
                             ),
                           )
                         ],
@@ -154,36 +210,62 @@ class HomeScreen extends StatelessWidget {
                       return Image.asset(
                           secondSlidersList[index],
                           fit : BoxFit.fill
-                      ).box.rounded.clip(Clip.antiAlias).margin(EdgeInsets.symmetric(horizontal: 5)).make();
+                      ).box.rounded.clip(Clip.antiAlias).margin(const EdgeInsets.symmetric(horizontal: 5)).make();
                     }
                     ),
 
                     //ALL ASSETS
                     20.heightBox,
-                    GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: 10,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,mainAxisExtent: 300 ,crossAxisSpacing: 8,mainAxisSpacing: 8),
-                        itemBuilder: (context,index){
-                           return Column(
-                             crossAxisAlignment: CrossAxisAlignment.start,
-                             children: [
-                               Image.asset(imgP5, width: 200, height: 200,fit: BoxFit.cover),
-                               const  Spacer(),
-                               "Amphibious for Blender 2.8".text.fontFamily(semibold).color(darkFontGrey).make(),
-                               10.heightBox,
-                               "\$ 2".text.fontFamily(bold).color(Colors.green).size(16).make(),
+                    StreamBuilder(
+                      stream: FirestorServices.allAssets(),
+                        builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot){
+                        if (!snapshot.hasData){
+                          return loadingIndicator();
+                        }else
+                        {
+                          var allassetsdata = snapshot.data!.docs;
+                          return      GridView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: allassetsdata.length,
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,mainAxisExtent: 300 ,crossAxisSpacing: 8,mainAxisSpacing: 8),
+                              itemBuilder: ( context,  index){
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Image.network("${allassetsdata[index]['imageURL'][0]}", width: 200, height: 200,fit: BoxFit.cover),
+                                    const  Spacer(),
 
 
-                             ],
-                           ).box.white.roundedSM.margin(EdgeInsets.symmetric(horizontal: 4)).padding(const EdgeInsets.all(12)).make();
+                                    (() {
+                                      String shortenName = allassetsdata[index]['name'];
+                                      if (shortenName.length > 15) {
+                                        shortenName = shortenName.substring(0, 15) + '...';
+                                      }
+                                      return shortenName;
+                                    })().text.fontFamily(semibold).color(darkFontGrey).make(),
 
-                         })
 
 
+
+
+                                    10.heightBox,
+
+                                    allassetsdata[index]['price']==0 ?
+                                    "Free".text.fontFamily(bold).color(Colors.green).size(16).make()
+                                        :
+                                    "\$ ${allassetsdata[index]['price']}".text.fontFamily(bold).color(Colors.green).size(16).make(),
+                                  ],
+                                ).box.white.roundedSM
+                                    .margin(const EdgeInsets.symmetric(horizontal: 4)).padding(const EdgeInsets.all(12))
+                                    .make().onTap(() {
+                                      Get.to(()=>ItemDetails(
+                                          title:"${allassetsdata[index]['name']}",
+                                          data:allassetsdata[index]));
+                                });
+                              });
+                        }})
                   ],
-
                 ),
               ),
             )

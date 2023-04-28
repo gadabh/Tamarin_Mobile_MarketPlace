@@ -77,4 +77,33 @@ class FirestorServices {
     return res ;
   }
 
+  static allAssets(){
+    return firestore.collection(assetCollection).snapshots();
   }
+
+ static getfeaturedAssets(){
+    return firestore.collection(assetCollection).where('is_featured',isEqualTo: true).get();
+ }
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

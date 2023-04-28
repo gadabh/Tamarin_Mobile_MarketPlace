@@ -98,7 +98,12 @@ class ItemDetails extends StatelessWidget {
                       size: 25,
                       stepInt: true,),
                     10.heightBox,
+
+                    data['price']==0 ?
+                    "Free".text.fontFamily(bold).color(Colors.green).size(16).make()
+                        :
                     "\$ ${data['price']}".text.fontFamily(bold).color(Colors.red).size(18).make(),
+
                     Row(
 
                       children: [
