@@ -86,7 +86,16 @@ class FirestorServices {
  }
 
 
-  }
+ static searchAssets(title){
+    return firestore.collection(assetCollection)
+        .where("name",isLessThanOrEqualTo: title).get();
+ }
+
+
+
+
+
+}
 
 
 

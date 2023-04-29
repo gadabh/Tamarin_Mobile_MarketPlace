@@ -4,16 +4,17 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mobile_v3/consts/consts.dart';
 import 'package:mobile_v3/consts/listes.dart';
+import 'package:mobile_v3/controllers/home_controller.dart';
 import 'package:mobile_v3/services/firestore_services.dart';
 import 'package:mobile_v3/views/category_screen/item_details.dart';
 import 'package:mobile_v3/views/category_screen/loading_indicator.dart';
 import 'package:mobile_v3/views/home_screen/components/featured_button.dart';
+import 'package:mobile_v3/views/home_screen/search_screen.dart';
 import 'package:mobile_v3/widgets_common/home_buttons.dart';
 
 import '../../controllers/asset_controller.dart';
 
 class HomeScreen extends StatelessWidget {
-
 
   const HomeScreen ({Key? key}) : super(key: key);
 
@@ -22,6 +23,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(AssetController());
+    var Homecontroller =Get.find<HomeController>();
+
     return Container(
       padding: const EdgeInsets.all(12),
       color: lightGrey,
@@ -36,9 +39,17 @@ class HomeScreen extends StatelessWidget {
             height: 60,
             color:lightGrey,
             child: TextFormField(
-              decoration: const InputDecoration(
+              controller: Homecontroller.searchController,
+              decoration:  InputDecoration(
                 border: InputBorder.none,
-                suffixIcon: Icon(Icons.search),
+                suffixIcon: Icon(Icons.search).onTap(() {
+                  if(Homecontroller.searchController.text.isNotEmptyAndNotNull){
+                    Get.to(()=> SearchScreen(title: Homecontroller.searchController.text,));
+
+                  }
+
+
+                }),
                 filled: true,
                 fillColor: whiteColor,
                 hintText: searchanything ,
