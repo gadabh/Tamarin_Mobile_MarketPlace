@@ -1,10 +1,5 @@
 
 
-
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -13,10 +8,10 @@ import 'package:mobile_v3/consts/consts.dart';
 import 'package:mobile_v3/consts/listes.dart';
 import 'package:mobile_v3/views/chat_screen/chat_screen.dart';
 import 'package:mobile_v3/widgets_common/our_buttom.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 import '../../controllers/asset_controller.dart';
-import '../../services/firestore_services.dart';
-
 
 class ItemDetails extends StatelessWidget {
 
@@ -24,6 +19,8 @@ class ItemDetails extends StatelessWidget {
   final String? title ;
   final dynamic data ;
   const ItemDetails({Key? key ,required this.title , this.data}) : super(key: key);
+
+
 
 
   @override
@@ -187,26 +184,45 @@ class ItemDetails extends StatelessWidget {
               ),
 
             )),
+
             SizedBox(
               width: double.infinity,
               height: 60,
               child: ourButtom(
-                  color: redColor,
-                  onPress: (){
-                      controller.increaseQuantity(context);
-                      controller.addToCart(
-                        sourceURL:data['sourceURL'],
-
-                        name: data['name'],
-                        imageURL: data['imageURL'][0],
-                        prop: data['prop'],
-                        price: data['price'],
-
-                        context: context,
-                      );
-                    },
-                  textColor: whiteColor,
-                  title:controller.iscart.value ?"Deleat from Cart " : "Add to cart "),
+                color: redColor,
+                onPress: () async {
+                  controller.increaseQuantity(context);
+                  if ("${data['price']}" == "0") {
+                    final url = Uri.parse(data['sourceURL']);
+                    await launch(url.toString());
+                  } else {
+                    await controller.addToCart(
+                      docId: data.id,
+                      userId: currentUser!.uid,
+                      added_by: data['added_by'],
+                      UpdatedAt: data['UpdatedAt'],
+                      brand: data['brand'],
+                      category: data['category'],
+                      createdAt: data['createdAt'],
+                      desc: data['desc'],
+                      editedBy: data['editedBy'],
+                      formats: data['formats'],
+                      rating: data['rating'],
+                      state: data['state'],
+                      sub_category: data['sub_category'],
+                      sourceURL: data['sourceURL'],
+                      wishlist: data['wishlist'],
+                      name: data['name'],
+                      imageURL: [data['imageURL'][0]],
+                      prop: data['prop'],
+                      price: data['price'],
+                      context: context,
+                    );
+                  }
+                },
+                textColor: whiteColor,
+                title: "${data['price']}" == "0" ? "Get asset" : "Add to cart",
+              ),
             ) ,
           ],
         ),

@@ -21,7 +21,7 @@ class FirestorServices {
 
   //get cart asset
    static getCart(uid){
-     return firestore.collection(cartCollection).where('added_by' , isEqualTo: uid).snapshots();
+     return firestore.collection(cartCollection).where('userId' , isEqualTo: uid).snapshots();
    }
    // delte asset from cart ==> del  document
   static deletDocument(docId)  {

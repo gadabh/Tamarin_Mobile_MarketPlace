@@ -23,19 +23,33 @@ class AssetController extends GetxController{
     }
   }
   addToCart({
-    name , imageURL , prop , price ,context,  sourceURL,
+    name , imageURL , prop , price ,context,  sourceURL,docId,UpdatedAt,category,
+    createdAt,desc ,editedBy ,formats,rating,state,sub_category ,added_by ,brand,wishlist, required String userId
   })async{
+
     await firestore.collection(cartCollection).doc().set({
-      'sourceURL':sourceURL,
-      'name' :name ,
+      'UpdatedAt':UpdatedAt,
+      'userId':userId,
+      'added_by' : added_by,
+      //currentUser!.uid,
+      'brand': brand,
+      'category':category,
+      'createdAt':createdAt,
+      'desc':desc,
+      'editedBy':editedBy,
+      'formats':formats,
+      'id': docId,
       'imageURL': imageURL ,
-      'prop': prop ,
+      'is_featured': false ,
+      'name' :name ,
       'price':price,
-      'added_by' : currentUser!.uid,
-
-
+      'prop': prop ,
+      'rating':rating,
+      'sourceURL':sourceURL,
+      'state':state,
+      'sub_category':sub_category,
+      'wishlist':wishlist,
     }
-
     ).catchError((error){
 
       VxToast.show(context, msg: error.toString());

@@ -35,10 +35,13 @@ class ShippingDetails extends StatelessWidget {
 
 
               costumTextField(hint: 'Address' , isPass: false , title: "Address" , controller: controller.addressController),
+              costumTextField(hint: 'country',isPass: false,title: "country", controller: controller.country),
               costumTextField(hint: 'City',isPass: false ,title: 'City', controller: controller.cityController),
               costumTextField(hint: 'State',isPass: false ,title: 'State', controller: controller.stateController),
               costumTextField(hint: 'Postal Code',isPass: false,title: 'Postal Code', controller: controller.postalController),
               costumTextField(hint: 'Phone',isPass: false,title: "Phone", controller: controller.phoneController),
+
+
               20.heightBox,
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,

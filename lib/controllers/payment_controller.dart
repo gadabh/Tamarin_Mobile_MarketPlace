@@ -6,9 +6,10 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_v3/views/home_screen/home.dart';
-
+import 'package:intl/intl.dart';
 import '../consts/firebase_consts.dart';
 import 'home_controller.dart';
+
 
 class PaymentController extends GetxController {
   Map<String, dynamic>? paymentIntentData;
@@ -48,7 +49,7 @@ class PaymentController extends GetxController {
           margin: const EdgeInsets.all(10),
           duration: const Duration(seconds: 2));
       await placeMyOrder(amount);
-      print('***************************************');
+
       await clearCart();
       Get.offAll(Home());
 
@@ -97,6 +98,7 @@ class PaymentController extends GetxController {
   var addressController = TextEditingController();
   var cityController = TextEditingController();
   var stateController = TextEditingController();
+  var country =TextEditingController();
   var postalController = TextEditingController();
   var phoneController = TextEditingController();
   var controller = TextEditingController();
@@ -104,28 +106,34 @@ class PaymentController extends GetxController {
   late dynamic assetSnapshot ;
   var assets =[];
   Random random = Random();
+
   //validate the order
-  placeMyOrder(String amount)async{
-
+  placeMyOrder(String amount) async {
     await getAssetDetails();
+    String formattedDate = DateFormat('E MMM dd y').format(DateTime.now());    await firestore.collection(ordersCollection).doc().set({
+      'cartItems': FieldValue.arrayUnion(assets),
 
-    await firestore.collection(ordersCollection).doc().set(
+      'orderAmount': amount,
+      'createdAt': FieldValue.serverTimestamp(),
+      'orderDate': formattedDate,
+      'orderStatus': 'PAYED',
+      "orderTime": "",
+      'order_code': random.nextInt(90000),
+      "shippingAdress": FieldValue.arrayUnion([
         {
-          'order_code':random.nextInt(90000),
-          'order_by': currentUser!.uid,
-          'order_date': FieldValue.serverTimestamp(),
-          'order_by_name': Get.find<HomeController>().username,
-          'order_by_email': currentUser!.email,
-          'order_by_adress': addressController.text,
-          'order_by_state':stateController.text,
-          'order_by_city':cityController.text,
-          'order_by_phone':phoneController.text,
-          'order_by_postalCode':postalController.text,
-          'payement_method': 'Stripe',
-          'total_amount':amount,
-          'order': FieldValue.arrayUnion(assets),
+          'country': country.text,
+          'city': cityController.text,
+          'state': stateController.text,
+          'name': Get.find<HomeController>().username,
+          'postal_code': postalController.text,
+          'line1': addressController.text,
+          "line2": "",
+          "phone": phoneController.text,
         }
-    );
+      ]),
+      'userEmail': currentUser!.email,
+      'userID': currentUser!.uid,
+    });
   }
 
 
@@ -133,10 +141,27 @@ class PaymentController extends GetxController {
     assets.clear();
     for(var i=0;i< assetSnapshot.length ; i++){
       assets.add({
+        'UpdatedAt':assetSnapshot[i]['UpdatedAt'],
+        'added_by' : assetSnapshot[i]['added_by'],
+        'brand': assetSnapshot[i]['brand'],
+        'category':assetSnapshot[i]['category'],
+        'createdAt':assetSnapshot[i]['createdAt'],
+        'desc':assetSnapshot[i]['desc'],
+        'editedBy':assetSnapshot[i]['editedBy'],
+        'formats':assetSnapshot[i]['formats'],
+        'id': assetSnapshot[i]['id'],
+        'imageURL': assetSnapshot[i]['imageURL'],
+        'is_featured': assetSnapshot[i]['is_featured'],
+        'name' :assetSnapshot[i]['name'],
+        'price':assetSnapshot[i]['price'],
+        'prop': assetSnapshot[i]['prop'],
+        'rating':assetSnapshot[i]['rating'],
         'sourceURL':assetSnapshot[i]['sourceURL'],
-        'name':assetSnapshot[i]['name'],
-        'imageURL':assetSnapshot[i]['imageURL'],
-        'prop':assetSnapshot[i]['prop'],
+        'state':assetSnapshot[i]['state'],
+        'sub_category':assetSnapshot[i]['sub_category'],
+        'wishlist': assetSnapshot[i]['wishlist'],
+
+
       });
 
     }
