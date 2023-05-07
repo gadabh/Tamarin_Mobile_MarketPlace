@@ -110,7 +110,8 @@ class PaymentController extends GetxController {
   //validate the order
   placeMyOrder(String amount) async {
     await getAssetDetails();
-    String formattedDate = DateFormat('E MMM dd y').format(DateTime.now());    await firestore.collection(ordersCollection).doc().set({
+    String formattedDate = DateFormat('E MMM dd y').format(DateTime.now());
+    await firestore.collection(ordersCollection).doc().set({
       'cartItems': FieldValue.arrayUnion(assets),
 
       'orderAmount': amount,

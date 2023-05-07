@@ -15,7 +15,7 @@ import '../../controllers/asset_controller.dart';
 
 class ItemDetails extends StatelessWidget {
 
-//  static const existe =false ;
+
   final String? title ;
   final dynamic data ;
   const ItemDetails({Key? key ,required this.title , this.data}) : super(key: key);
@@ -191,33 +191,17 @@ class ItemDetails extends StatelessWidget {
               child: ourButtom(
                 color: redColor,
                 onPress: () async {
-                  controller.increaseQuantity(context);
+
                   if ("${data['price']}" == "0") {
                     final url = Uri.parse(data['sourceURL']);
                     await launch(url.toString());
-                  } else {
-                    await controller.addToCart(
-                      docId: data.id,
-                      userId: currentUser!.uid,
-                      added_by: data['added_by'],
-                      UpdatedAt: data['UpdatedAt'],
-                      brand: data['brand'],
-                      category: data['category'],
-                      createdAt: data['createdAt'],
-                      desc: data['desc'],
-                      editedBy: data['editedBy'],
-                      formats: data['formats'],
-                      rating: data['rating'],
-                      state: data['state'],
-                      sub_category: data['sub_category'],
-                      sourceURL: data['sourceURL'],
-                      wishlist: data['wishlist'],
-                      name: data['name'],
-                      imageURL: [data['imageURL'][0]],
-                      prop: data['prop'],
-                      price: data['price'],
-                      context: context,
-                    );
+
+
+                  }
+                  else {
+                    controller.checkIfIncart(data.id ,context,controller ,data);
+
+
                   }
                 },
                 textColor: whiteColor,
