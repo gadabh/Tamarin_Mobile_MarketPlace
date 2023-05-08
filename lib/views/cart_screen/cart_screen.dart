@@ -67,7 +67,7 @@ class CartScreen extends StatelessWidget {
                               subtitle: "${data[index]['price']}".numCurrency.text.color(Colors.red).fontFamily(semibold).make(),
                               trailing: const Icon(Icons.delete , color: Colors.red)
                                   .onTap(() async {
-                                ccontroller.isInCart.value=false;
+                            await    ccontroller.rmFromCart(data[index]['id'],context);
 
 
                                 FirestorServices.deletDocument(data[index].id);

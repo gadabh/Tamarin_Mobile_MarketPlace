@@ -120,8 +120,20 @@ class AssetController extends GetxController{
 
 
 
-  rmFromCart(docId)async{
-    await firestore.collection(cartCollection).doc(docId).delete();
+  rmFromCart(docId, context) async {
+    final DocumentSnapshot<Map<String, dynamic>> snapshot =
+    await FirebaseFirestore.instance.collection(assetCollection).doc(docId).get();
+    final List<dynamic>? inCart = snapshot.data()?['InCart'];
+
+    if (inCart != null && inCart.contains(currentUser!.uid)) {
+      await FirebaseFirestore.instance.collection(assetCollection).doc(docId).update({
+        'InCart': FieldValue.arrayRemove([currentUser!.uid])
+      });
+      isInCart(false);
+      VxToast.show(context, msg: 'Item removed from cart');
+    }else {
+      VxToast.show(context, msg: 'Item not removed from cart');
+    }
   }
 
 
