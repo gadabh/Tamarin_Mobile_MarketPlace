@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_v3/views/home_screen/home.dart';
 import 'package:intl/intl.dart';
+import '../consts/consts.dart';
 import '../consts/firebase_consts.dart';
 import 'home_controller.dart';
 
@@ -135,10 +136,12 @@ class PaymentController extends GetxController {
       'userEmail': currentUser!.email,
       'userID': currentUser!.uid,
     });
+
+
   }
 
 
-  getAssetDetails(){
+  getAssetDetails() async {
     assets.clear();
     for(var i=0;i< assetSnapshot.length ; i++){
       assets.add({
@@ -166,12 +169,15 @@ class PaymentController extends GetxController {
       });
 
     }
+
     // print(assets);
   }
 
-  clearCart() {
+  clearCart() async {
     for(var i=0;i< assetSnapshot.length ; i++){
       firestore.collection(cartCollection).doc(assetSnapshot[i].id).delete();
     }
+
+
   }
 }

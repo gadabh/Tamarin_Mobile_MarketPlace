@@ -20,6 +20,7 @@ import 'package:mobile_v3/views/profile_screen/edit_profile_screen.dart';
 import '../Wishlist_screen/wishlist.dart';
 import '../auth_screen/login_screen.dart';
 import '../chat_screen/messaging_screen.dart';
+import 'package:lottie/lottie.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -77,8 +78,7 @@ class ProfileScreen extends StatelessWidget {
                       child: Row(
                         children: [
                           data['photo'] == '' ?
-                          Image.asset(imgProfile2,width: 130,fit: BoxFit.cover,).box.roundedFull.clip(Clip.antiAlias).make()
-                         :
+                          Lottie.asset('assets/profile-persons.json',height: 150)                          :
                       Image.network(data['photo'],width: 130,fit: BoxFit.cover,).box.roundedFull.clip(Clip.antiAlias).make(),
 
                     10.heightBox,
@@ -137,7 +137,7 @@ class ProfileScreen extends StatelessWidget {
 
 
 
-            ListView.separated(
+                  ListView.separated(
                       shrinkWrap: true,
                       separatorBuilder: ( context,  index) {
                         return const Divider(color: lightGrey);

@@ -41,13 +41,13 @@ class _OrdersDetailsState extends State<OrdersDetails> {
                 const Divider(),
 
                 orderPlaceDetails(
-                    d1:widget.data["order_code"] ,
-                    d2: widget.data["payement_method"],
+                    d1:widget.data.id ,
+                    d2: widget.data["orderStatus"],
                     title1 :"Order Code",
-                    title2 :"Payement Method",
+                    title2 :"State",
                 ),
                 orderPlaceDetails(
-                  d1:DateFormat().add_yMd().format((widget.data["order_date"].toDate())),
+                  d1:widget.data["orderDate"].toString(),
                   d2:"PAYED",
                   title1 :"Order Date",
                   title2: "State",
@@ -62,13 +62,14 @@ class _OrdersDetailsState extends State<OrdersDetails> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                          "Adress".text.fontFamily(semibold).make(),
-                          "${widget.data["order_by_name"]}".text.color(Colors.black45).make(),
-                          "${widget.data["order_by_email"]}".text.color(Colors.black45).make(),
-                          "${widget.data["order_by_adress"]}".text.color(Colors.black45).make(),
-                          "${widget.data["order_by_city"]}".text.color(Colors.black45).make(),
-                          "${widget.data["order_by_state"]}".text.color(Colors.black45).make(),
-                          "${widget.data["order_by_phone"]}".text.color(Colors.black45).make(),
-                          "${widget.data["order_by_postalCode"]}".text.color(Colors.black45).make(),
+                          "${widget.data["shippingAdress"][0]["country"]}".text.color(Colors.black45).make(),
+
+                          "${widget.data["shippingAdress"][0]["city"]}".text.color(Colors.black45).make(),
+                          "${widget.data["shippingAdress"][0]["state"]}".text.color(Colors.black45).make(),
+                          "${widget.data["shippingAdress"][0]["line1"]}".text.color(Colors.black45).make(),
+                          "${widget.data["shippingAdress"][0]["postal_code"]}".text.color(Colors.black45).make(),
+
+
                         ],
                       ),
                       SizedBox(
@@ -78,7 +79,7 @@ class _OrdersDetailsState extends State<OrdersDetails> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             "Total Amount".text.fontFamily(semibold).make(),
-                            "${widget.data["total_amount"]}".text.color(Colors.black45).fontFamily(bold).make(),
+                            "${widget.data["orderAmount"]}".text.color(Colors.black45).fontFamily(bold).make(),
                           ],
                         ),
                       )
@@ -96,13 +97,13 @@ class _OrdersDetailsState extends State<OrdersDetails> {
                physics: const NeverScrollableScrollPhysics(),
                shrinkWrap: true,
                children:
-               List.generate(widget.data['order'].length, (index){
+               List.generate(widget.data['cartItems'].length, (index){
                    return
                    Padding(
                      padding: const EdgeInsets.symmetric(horizontal: 16.0 ,vertical: 8),
                      child: Column(
                        children: [
-                          Image.network("${widget.data['order'][index]['imageURL']}",height: 200,width: 200,),
+                          Image.network("${widget.data['cartItems'][0]['imageURL'][0]}",height: 200,width: 200,),
 
 
                          Column(
@@ -110,7 +111,7 @@ class _OrdersDetailsState extends State<OrdersDetails> {
                            children: [
                              5.heightBox,
                              "Asset Name".text.fontFamily(semibold).make(),
-                             "${widget.data['order'][index]['name']}".text.color(Colors.black45).fontFamily(semibold).make(),
+                             "${widget.data['cartItems'][index]['name']}".text.color(Colors.black45).fontFamily(semibold).make(),
 
                            ],
                          ),
@@ -120,7 +121,7 @@ class _OrdersDetailsState extends State<OrdersDetails> {
                            children: [
                              20.heightBox,
                              "Owner Name".text.fontFamily(semibold).make(),
-                             "${widget.data['order'][index]['prop']}".text.color(Colors.black45).fontFamily(semibold).make(),
+                             "${widget.data['cartItems'][index]['prop']}".text.color(Colors.black45).fontFamily(semibold).make(),
 
                            ],
                          ),
@@ -144,7 +145,7 @@ class _OrdersDetailsState extends State<OrdersDetails> {
                                   style:  const TextStyle(color: Colors.black),
                                   recognizer:  TapGestureRecognizer() ..onTap = ()
                                   {
-                                    launch("${widget.data['order'][index]['sourceURL']}");
+                                    launch("${widget.data['cartItems'][index]['sourceURL']}");
                                     }, ), )], ),
                            ],
                          ),
@@ -167,7 +168,7 @@ class _OrdersDetailsState extends State<OrdersDetails> {
 
             20.heightBox,
             orderPlaceDetails(
-              d1:widget.data["total_amount"] ,
+              d1:widget.data["orderAmount"] ,
               d2: "",
               title1 :"TOTAL : ",
               title2 :"",

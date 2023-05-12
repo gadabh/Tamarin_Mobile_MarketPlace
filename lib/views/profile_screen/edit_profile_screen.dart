@@ -8,6 +8,8 @@ import 'package:mobile_v3/controllers/profil_controller.dart';
 import 'package:mobile_v3/widgets_common/our_buttom.dart';
 
 import '../../widgets_common/custom_textfield.dart';
+import 'package:lottie/lottie.dart';
+
 
 class EditProfileScreen extends StatelessWidget {
   final dynamic data ;
@@ -31,12 +33,7 @@ class EditProfileScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
                controller.profilImgPath.isEmpty
-                  ?Image.asset(
-                imgProfile2,
-                width: 100,
-                fit: BoxFit.cover,
-              ).box.roundedFull.clip(Clip.antiAlias).make()
-              :Image.file(
+                  ?  Lottie.asset('assets/profile-persons.json',height: 150)                         :Image.file(
                 File(controller.profilImgPath.value),
                 width: 100,
                 fit: BoxFit.cover,

@@ -39,8 +39,8 @@ class OrdersScreen extends StatelessWidget {
                     itemBuilder: (BuildContext context ,int index){
                         return ListTile(
                           leading: "${index +1}".text.fontFamily(bold).color(darkFontGrey).xl.make(),
-                          title: data[index]['order_code'].toString().text.color(redColor).fontFamily(semibold).make(),
-                          subtitle:data[index]['total_amount'].toString().numCurrency.text.color(darkFontGrey).fontFamily(bold).make(),
+                          title: (data[index].id).toString().text.color(redColor).fontFamily(semibold).make(),
+                          subtitle:(data[index]['orderAmount']).toString().numCurrency.text.color(darkFontGrey).fontFamily(bold).make(),
                           trailing: IconButton(onPressed: (){
                             Get.to(()=>OrdersDetails(data:data[index]));
 

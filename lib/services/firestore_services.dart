@@ -44,7 +44,7 @@ class FirestorServices {
 
   static getAllOrders(){
     return firestore.collection(ordersCollection)
-        .where('order_by',isEqualTo: currentUser!.uid).snapshots();
+        .where('userID',isEqualTo: currentUser!.uid).snapshots();
   }
 
   static getAllWishlists(){
@@ -69,7 +69,7 @@ class FirestorServices {
       {return value.docs.length ;}),
 
       firestore.collection(ordersCollection)
-          .where('order_by',isEqualTo: currentUser!.uid).get().then((value)
+          .where('userID',isEqualTo: currentUser!.uid).get().then((value)
       {return value.docs.length ;}),
 
     ]
