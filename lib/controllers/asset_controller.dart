@@ -69,47 +69,6 @@ class AssetController extends GetxController{
 
 
 
-  checkIfIncart(docId, context,controller ,data) async {
-    final DocumentSnapshot<Map<String, dynamic>> snapshot =
-    await FirebaseFirestore.instance.collection(assetCollection).doc(docId).get();
-    final List<dynamic>? inCart = snapshot.data()?['InCart'];
-
-    if (inCart != null && inCart.contains(currentUser!.uid)) {
-      isInCart(true);
-      VxToast.show(context, msg: 'Item already in cart');
-    } else {
-      await controller.addToCart(
-        docId: data.id,
-        userId: currentUser!.uid,
-        added_by: data['added_by'],
-        UpdatedAt: data['UpdatedAt'],
-        brand: data['brand'],
-        category: data['category'],
-        createdAt: data['createdAt'],
-        desc: data['desc'],
-        editedBy: data['editedBy'],
-        formats: data['formats'],
-        rating: data['rating'],
-        state: data['state'],
-        sub_category: data['sub_category'],
-        sourceURL: data['sourceURL'],
-        wishlist: data['wishlist'],
-
-        name: data['name'],
-        imageURL: [data['imageURL'][0]],
-        prop: data['prop'],
-        price: data['price'],
-        context: context,
-      );
-      await FirebaseFirestore.instance.collection(assetCollection).doc(docId).set({
-        'InCart': FieldValue.arrayUnion([
-          currentUser!.uid
-        ])
-      }, SetOptions(merge: true));
-      isInCart(false);
-      VxToast.show(context, msg: 'Item added to cart');
-    }
-  }
 
 
 
@@ -120,21 +79,7 @@ class AssetController extends GetxController{
 
 
 
-  rmFromCart(docId, context) async {
-    final DocumentSnapshot<Map<String, dynamic>> snapshot =
-    await FirebaseFirestore.instance.collection(assetCollection).doc(docId).get();
-    final List<dynamic>? inCart = snapshot.data()?['InCart'];
 
-    if (inCart != null && inCart.contains(currentUser!.uid)) {
-      await FirebaseFirestore.instance.collection(assetCollection).doc(docId).update({
-        'InCart': FieldValue.arrayRemove([currentUser!.uid])
-      });
-      isInCart(false);
-      VxToast.show(context, msg: 'Item removed from cart');
-    }else {
-      VxToast.show(context, msg: 'Item not removed from cart');
-    }
-  }
 
 
   addToWishlist(docId,context)async{

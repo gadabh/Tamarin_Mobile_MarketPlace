@@ -46,6 +46,10 @@ class FirestorServices {
     return firestore.collection(ordersCollection)
         .where('userID',isEqualTo: currentUser!.uid).snapshots();
   }
+  static getSubCategoryAssets(title){
+    return firestore.collection(assetCollection).where('sub_category',isEqualTo : title).snapshots();
+
+  }
 
   static getAllWishlists(){
     return firestore.collection(assetCollection)

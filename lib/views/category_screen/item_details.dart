@@ -1,11 +1,14 @@
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mobile_v3/consts/colors.dart';
 import 'package:mobile_v3/consts/consts.dart';
 import 'package:mobile_v3/consts/listes.dart';
+import 'package:mobile_v3/services/firestore_services.dart';
+import 'package:mobile_v3/views/category_screen/loading_indicator.dart';
 import 'package:mobile_v3/views/chat_screen/chat_screen.dart';
 import 'package:mobile_v3/widgets_common/our_buttom.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -153,29 +156,76 @@ class ItemDetails extends StatelessWidget {
                     ),
                     20.heightBox,
                     //asset you may like
-                    assetyoumaylike.text.fontFamily(bold).size(16).color(darkFontGrey).make(),
-                    10.heightBox,
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children:
-                        List.generate(6, (index) => Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(imgP1, width: 170,fit: BoxFit.cover),
-                            10.heightBox,
-                            "Amphibious for Blender 2.8".text.fontFamily(semibold).color(darkFontGrey).make(),
-                            10.heightBox,
-                            "Free".text.fontFamily(bold).color(Colors.green).size(16).make(),
 
-
-                          ],
-                        ).box.white.roundedSM.margin(EdgeInsets.symmetric(horizontal: 4)).padding(const EdgeInsets.all(8)).make()
-                        ),
-
-
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                          color: Colors.white38
                       ),
-                    )
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          assetyoumaylike.text.fontFamily(bold).size(16).color(darkFontGrey).make(),
+
+                          20.heightBox,
+
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: FutureBuilder(
+                                future: FirestorServices.getfeaturedAssets(),
+
+                                builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
+
+                                  if(!snapshot.hasData) {
+                                    return Center(
+                                      child: loadingIndicator(),
+                                    );
+                                  }else if ( snapshot.data!.docs.isEmpty){
+                                    return "No Featured Assets ".text.white.makeCentered();
+                                  }
+                                  else{
+                                    var featuredData= snapshot.data!.docs;
+
+                                    return Row(
+                                      children:
+                                      List.generate(featuredData.length, (index) => Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Image.network(featuredData[index]['imageURL'][0], width: 170,height: 120,fit: BoxFit.cover),
+                                          10.heightBox,
+
+                                          (() {
+                                            String shortenName = featuredData[index]['name'];
+                                            if (shortenName.length > 15) {
+                                              shortenName = shortenName.substring(0, 15) + '...';
+                                            }
+                                            return shortenName;
+                                          })().text.fontFamily(semibold).color(darkFontGrey).make(),
+
+
+                                          10.heightBox,
+                                          featuredData[index]['price']==0 ?
+                                          "Free".text.fontFamily(bold).color(Colors.green).size(16).make()
+                                              :
+                                          "\$ ${featuredData[index]['price']}".text.fontFamily(bold).color(Colors.green).size(16).make()
+                                        ],
+                                      ).box.white.roundedSM.margin(const EdgeInsets.symmetric(horizontal: 4)).padding(const EdgeInsets.all(8))
+                                          .make().onTap(() {
+                                        Get.to(()=>ItemDetails(
+                                            title:"${featuredData[index]['name']}",
+                                            data:featuredData[index]));
+                                      })
+                                      ),
+                                    );
+                                  }
+
+                                }
+                            ),
+                          )
+                        ],
+                      ) ,
+                    ),
 
 
 
@@ -198,11 +248,7 @@ class ItemDetails extends StatelessWidget {
 
 
                   }
-                  else {
-                    controller.checkIfIncart(data.id ,context,controller ,data);
 
-
-                  }
                 },
                 textColor: whiteColor,
                 title: "${data['price']}" == "0" ? "Get asset" : "Add to cart",
