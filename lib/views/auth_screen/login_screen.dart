@@ -36,9 +36,7 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       costumTextField( hint: emailHint ,title: email, isPass: false , controller:  controller.emailController),
                       costumTextField(  hint: passwordHint ,title:  password , isPass: true , controller: controller.passwordController),
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: TextButton(onPressed: (){}, child: forgetPass.text.make()))   ,
+
                       5.heightBox,
                       controller.isLoading.value? const CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation(redColor),

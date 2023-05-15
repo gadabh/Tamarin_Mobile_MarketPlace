@@ -21,9 +21,22 @@ import '../Wishlist_screen/wishlist.dart';
 import '../auth_screen/login_screen.dart';
 import '../chat_screen/messaging_screen.dart';
 import 'package:lottie/lottie.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+
+
   const ProfileScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +52,7 @@ class ProfileScreen extends StatelessWidget {
           ),
         body: StreamBuilder(
           stream: FirestorServices.getUser(currentUser!.uid),
-      
+
           builder: (BuildContext context , AsyncSnapshot<QuerySnapshot> snapshot ){
 
             if ( !snapshot.hasData){
