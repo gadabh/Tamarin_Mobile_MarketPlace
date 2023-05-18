@@ -136,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             return  Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                detailsCard(count: countdata[0].toString(), title: "in your cart", width: context.screenWidth/3.4),
+                               detailsCard(count: countdata[0].toString(), title: "in your cart", width: context.screenWidth/3.4),
                                 detailsCard(count: countdata[1].toString(), title: "in your Wishliste", width: context.screenWidth/3.4),
                                 detailsCard(count: countdata[2].toString() , title: "your order", width: context.screenWidth/3.4),
 

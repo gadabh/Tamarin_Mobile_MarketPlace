@@ -32,8 +32,11 @@ class EditProfileScreen extends StatelessWidget {
         body: Obx(()=> Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-               controller.profilImgPath.isEmpty
-                  ?  Lottie.asset('assets/profile-persons.json',height: 150)                         :Image.file(
+              //if data image url and controller pah is empty
+              controller.profilImgPath.isEmpty
+                  ?  Lottie.asset('assets/profile-persons.json',height: 150)
+                  :
+              Image.file(
                 File(controller.profilImgPath.value),
                 width: 100,
                 fit: BoxFit.cover,

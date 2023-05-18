@@ -38,7 +38,8 @@ class LoginScreen extends StatelessWidget {
                       costumTextField(  hint: passwordHint ,title:  password , isPass: true , controller: controller.passwordController),
 
                       5.heightBox,
-                      controller.isLoading.value? const CircularProgressIndicator(
+                      controller.isLoading.value
+                      ? const CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation(redColor),
                       ) : ourButtom(
                           color: redColor ,
@@ -46,9 +47,8 @@ class LoginScreen extends StatelessWidget {
                           textColor: whiteColor,
                           onPress: () async {
                             controller.isLoading(true);
-                            await controller.loginMethod(
-                              context: context ,
-                            ).then((value)  {
+
+                            await controller.loginMethod(context: context ,).then((value)  {
                               if ( value != null ){
                                VxToast.show(context, msg: "Logged In Successful");
                                 Get.offAll(()=>const Home());
@@ -56,9 +56,6 @@ class LoginScreen extends StatelessWidget {
                               } else{
                                 controller.isLoading(false);
                               }
-                            }).then((value) {
-                            VxToast.show(context, msg: "Logged In Successful");
-                              Get.offAll(()=>const Home());
                             });
 
 
@@ -69,7 +66,7 @@ class LoginScreen extends StatelessWidget {
                   ],
                   ),
                 ),
-               
+
 
 
 

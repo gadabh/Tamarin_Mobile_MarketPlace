@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mobile_v3/consts/colors.dart';
 import 'package:mobile_v3/consts/consts.dart';
-import 'package:mobile_v3/consts/listes.dart';
+
 import 'package:mobile_v3/services/firestore_services.dart';
 import 'package:mobile_v3/views/category_screen/loading_indicator.dart';
 import 'package:mobile_v3/views/chat_screen/chat_screen.dart';
@@ -30,6 +30,8 @@ class ItemDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = Get.find<AssetController>();
 
+
+
     return WillPopScope(
       onWillPop: ()async {
         //  controller.resetValues();
@@ -45,7 +47,7 @@ class ItemDetails extends StatelessWidget {
             } ,icon: const Icon(Icons.arrow_back),),
           title: title!.text.color(darkFontGrey).fontFamily(bold).make(),
           actions: [
-            IconButton(onPressed: (){}, icon: const Icon(Icons.share)),
+         //   IconButton(onPressed: (){}, icon: const Icon(Icons.share)),
             Obx(()=>
                 IconButton(onPressed: (){
                   if(controller.isFav.value){
@@ -141,19 +143,19 @@ class ItemDetails extends StatelessWidget {
 
 
 
-                    //Review section
-                    ListView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      children:
-                      List.generate(itemDetailsListe.length, (index) => ListTile(title: itemDetailsListe[index]
-                          .text
-                          .fontFamily(semibold)
-                          .color(darkFontGrey)
-                          .make(),
-                        trailing: const Icon(Icons.arrow_forward),
-                      )),
-                    ),
+                    // //Review section
+                    // ListView(
+                    //   physics: const NeverScrollableScrollPhysics(),
+                    //   shrinkWrap: true,
+                    //   children:
+                    //   List.generate(itemDetailsListe.length, (index) => ListTile(title: itemDetailsListe[index]
+                    //       .text
+                    //       .fontFamily(semibold)
+                    //       .color(darkFontGrey)
+                    //       .make(),
+                    //     trailing: const Icon(Icons.arrow_forward),
+                    //   )),
+                    // ),
                     20.heightBox,
                     //asset you may like
 
@@ -166,10 +168,8 @@ class ItemDetails extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          assetyoumaylike.text.fontFamily(bold).size(16).color(darkFontGrey).make(),
-
-                          20.heightBox,
-
+                          "You might also like  ".text.black.fontFamily(bold).size(18).make(),
+                          10.heightBox,
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: FutureBuilder(
@@ -212,9 +212,15 @@ class ItemDetails extends StatelessWidget {
                                         ],
                                       ).box.white.roundedSM.margin(const EdgeInsets.symmetric(horizontal: 4)).padding(const EdgeInsets.all(8))
                                           .make().onTap(() {
-                                        Get.to(()=>ItemDetails(
-                                            title:"${featuredData[index]['name']}",
-                                            data:featuredData[index]));
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => ItemDetails(
+                                              title: featuredData[index]['name'],
+                                              data: featuredData[index],
+                                            ),
+                                          ),
+                                        );
                                       })
                                       ),
                                     );
@@ -247,6 +253,31 @@ class ItemDetails extends StatelessWidget {
                     await launch(url.toString());
 
 
+                  }else {
+                    await controller.addToCart(
+                      docId: data.id,
+                      userId: currentUser!.uid,
+                      added_by: data['added_by'],
+                      UpdatedAt: data['UpdatedAt'],
+                      brand: data['brand'],
+                      category: data['category'],
+                      createdAt: data['createdAt'],
+                      desc: data['desc'],
+                      editedBy: data['editedBy'],
+                      formats: data['formats'],
+                      rating: data['rating'],
+                      state: data['state'],
+                      sub_category: data['sub_category'],
+                      sourceURL: data['sourceURL'],
+                      wishlist: data['wishlist'],
+
+                      name: data['name'],
+                      imageURL: [data['imageURL'][0]],
+                      prop: data['prop'],
+                      price: data['price'],
+                      context: context,
+                    );
+                    VxToast.show(context, msg: 'Item added to cart');
                   }
 
                 },

@@ -54,12 +54,12 @@ const categoryImages =[
   imgFc1,
 ];
 
-
-const itemDetailsListe =[
-  reviews,
-  sellerpolicy ,
-  supportpolicy,
-];
+//
+// const itemDetailsListe =[
+//   reviews,
+//   sellerpolicy ,
+//   supportpolicy,
+// ];
 
 
 const profileButtonList =[
