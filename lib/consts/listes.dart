@@ -51,7 +51,7 @@ const categoryImages =[
   imgFc9,
   imgFc10,
   imgFc11,
-  imgFc1,
+  imgFc111,
 ];
 
 //
