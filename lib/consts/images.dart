@@ -66,7 +66,8 @@ const imgB9 = "assets/images/b9.jpeg";
 const imgB10 = "assets/images/b10.jpeg";
 const imgCod = "assets/images/cod.png";
 //categories
-const imgFc1 = "assets/images/3d.png";
+const imgFc111 = "assets/images/3d.png";
+const imgFc1 = "assets/images/vue-3d.png";
 const imgFc2 = "assets/images/3ds.png";
 const imgFc3 = "assets/images/anim.png";
 const imgFc4 = "assets/images/fbx.png";
@@ -109,11 +110,13 @@ const imgProfile = "assets/images/profile_image.png";
 const imgRavePayment = "assets/images/rave_payment.png";
 const imgRozarpay = "assets/images/rozarpay.png";
 
+
+
 const imgS1 = "assets/images/s1.jpg";
-const imgS2 = "assets/images/s2.jpg";
+const imgS2 = "assets/images/3dss.png";
 const imgS3 = "assets/images/s3.jpg";
-const imgS4 = "assets/images/s4.jpg";
-const imgS5 = "assets/images/s5.jpg";
+const imgS4 = "assets/images/lettre-m.png";
+const imgS5 = "assets/images/objj.png";
 const imgS6 = "assets/images/s6.jpg";
 
 const imgS7 = "assets/images/s7.jpg";
@@ -122,10 +125,12 @@ const imgS9 = "assets/images/s9.jpg";
 const imgS10 = "assets/images/s10.jpg";
 const imgS11 = "assets/images/s11.jpg";
 const imgS12 = "assets/images/s12.jpg";
-const imgSs1 = "assets/images/ss1.jpg";
-const imgSs2 = "assets/images/ss2.jpg";
-const imgSs3 = "assets/images/ss3.jpg";
-const imgSs4 = "assets/images/ss4.jpg";
+
+const imgSs1 = "assets/images/r3.webp";
+const imgSs2 = "assets/images/r1.jpg";
+const imgSs3 = "assets/images/r2.jpg";
+
+
 const imgSave = "assets/images/save.png";
 
 const imgSlider1 = "assets/images/slider_1.jpg";

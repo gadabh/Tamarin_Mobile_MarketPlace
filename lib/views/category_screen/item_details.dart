@@ -270,7 +270,6 @@ class ItemDetails extends StatelessWidget {
                       sub_category: data['sub_category'],
                       sourceURL: data['sourceURL'],
                       wishlist: data['wishlist'],
-
                       name: data['name'],
                       imageURL: [data['imageURL'][0]],
                       prop: data['prop'],

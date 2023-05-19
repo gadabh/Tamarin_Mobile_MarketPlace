@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +15,7 @@ import 'package:mobile_v3/views/home_screen/search_screen.dart';
 import 'package:mobile_v3/widgets_common/home_buttons.dart';
 
 import '../../controllers/asset_controller.dart';
+import '../category_screen/category_details.dart';
 
 class HomeScreen extends StatelessWidget {
 
@@ -57,29 +60,37 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-            10.heightBox,
+
             Expanded(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
 
+                    VxSwiper.builder(
+                      aspectRatio: 16 / 9,
+                      autoPlay: true,
+                      height: 250,
 
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children:
-                      List.generate(2, (index) => homeButtons(
-                        height: context.screenHeight *0.15 ,
-                        width: context.screenWidth /2.5 ,
-                        icon: index==0 ? icTodaysDeal : icFlashDeal,
-                        title: index==0 ? todayDeal : flashsale ,
-
-                      )),
-
+                      enlargeCenterPage: true,
+                      itemCount: secondSlidersList.length,
+                      itemBuilder: (context, index) {
+                        return Row(
+                          children: [
+                            Expanded(
+                              child: Image.asset(
+                                secondSlidersList[index],
+                                fit: BoxFit.fill,
+                              ).box.rounded.clip(Clip.antiAlias).make(),
+                            ),
+                            SizedBox(width: 10), // Adjust the spacing between images as needed
+                          ],
+                        );
+                      },
                     ),
 
-                    20.heightBox,
+
+
 
                     Align(
                         alignment : Alignment.centerLeft,
@@ -88,38 +99,34 @@ class HomeScreen extends StatelessWidget {
                     //Featured  categories
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
+
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
                         children:
                           List.generate(
-                              3, (index) =>Column(
-                                children: [
+                              2, (index) =>Column(
+
+                            children: [
                                   Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
-                                    featuredButton(icon: featuredImages1[index] ,
-                                        title: featuredTitles1[index]
+
+
+                                      featuredButton(icon:  featuredImages1[index] ,
+                                        title:  featuredTitles1[index]
                                     ),
-                                    10.heightBox,
+                                  10.heightBox,
+
                                     featuredButton(icon: featuredImages2[index] ,
                                         title: featuredTitles2[index]
                                        ),
+
                                     ],),],
                               ),).toList(),
                       ),
                     ),
-                    20.heightBox,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children:
-                      List.generate(3, (index) => homeButtons(
-                        height: context.screenHeight *0.15 ,
-                        width: context.screenWidth /3.5 ,
-                        icon: index==0 ? icTopCategories : index ==1 ? icBrands : icTopSeller,
-                        title: index==0 ? topCategories : index ==1 ? brand : topSellers ,
 
-                      )),
-
-                    ),
-                    20.heightBox,
 
                     //featured Asset
                     20.heightBox,
@@ -127,133 +134,178 @@ class HomeScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(12),
                       width: double.infinity,
                       decoration: const BoxDecoration(
-                        color: Colors.white38
+                        color: Colors.white38,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           featuredAsset.text.black.fontFamily(bold).size(18).make(),
                           10.heightBox,
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: FutureBuilder(
-                              future: FirestorServices.getfeaturedAssets(),
 
-                              builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
+// ...
 
-                                if(!snapshot.hasData) {
-                                  return Center(
-                                    child: loadingIndicator(),
-                                  );
-                                }else if ( snapshot.data!.docs.isEmpty){
-                                  return "No Featured Assets ".text.white.makeCentered();
-                                }
-                                else{
-                                  var featuredData= snapshot.data!.docs;
+                         SizedBox(
+                    height: 200,
+                    child: FutureBuilder(
+                        future: FirestorServices.getfeaturedAssets(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: loadingIndicator(),
+                    );
+                  } else if (snapshot.data!.docs.isEmpty) {
+                    return "No Featured Assets ".text.white.makeCentered();
+                  } else {
+                    var featuredData = snapshot.data!.docs;
+                    int currentPageIndex = 0;
+                    final PageController pageController = PageController(initialPage: currentPageIndex);
 
-                                  return Row(
-                                    children:
-                                    List.generate(featuredData.length, (index) => Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Image.network(featuredData[index]['imageURL'][0], width: 170,height: 120,fit: BoxFit.cover),
-                                        10.heightBox,
-
-                                        (() {
-                                          String shortenName = featuredData[index]['name'];
-                                          if (shortenName.length > 15) {
-                                            shortenName = shortenName.substring(0, 15) + '...';
-                                          }
-                                          return shortenName;
-                                        })().text.fontFamily(semibold).color(darkFontGrey).make(),
-
-
-                                        10.heightBox,
-                                      featuredData[index]['price']==0 ?
-                                      "Free".text.fontFamily(bold).color(Colors.green).size(16).make()
-                                        :
-                                      "\$ ${featuredData[index]['price']}".text.fontFamily(bold).color(Colors.green).size(16).make()
-                                      ],
-                                    ).box.white.roundedSM.margin(const EdgeInsets.symmetric(horizontal: 4)).padding(const EdgeInsets.all(8))
-                                        .make().onTap(() {
-                                      Get.to(()=>ItemDetails(
-                                          title:"${featuredData[index]['name']}",
-                                          data:featuredData[index]));
-                                    })
-                                    ),
-                                  );
-                                }
-
-                              }
-                            ),
-                          )
-                        ],
-                      ) ,
-                    ),
-                    20.heightBox,
-                    VxSwiper.builder(
-                        aspectRatio: 16/9,
-                        autoPlay: true,
-                        height: 200,
-                        enlargeCenterPage: true,
-                        itemCount: slidersList.length, itemBuilder: (context,index){
-                      return Image.asset(
-                          slidersList[index],
-                          fit : BoxFit.fill
-                      ).box.rounded.clip(Clip.antiAlias).margin(const EdgeInsets.symmetric(horizontal: 5)).make();
+                    // Auto-scroll function
+                    void autoScroll() {
+                      currentPageIndex = (currentPageIndex + 1) % featuredData.length;
+                      pageController.animateToPage(
+                        currentPageIndex,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.ease,
+                      );
                     }
-                    ),
 
+                    // Start auto-scrolling
+                    Timer.periodic(const Duration(seconds: 3), (timer) {
+                      autoScroll();
+                    });
 
+                    return PageView.builder(
+                      controller: pageController,
+                      itemCount: (featuredData.length / 2).ceil(), // Divide the total count by 3 and round up
+                      itemBuilder: (context, pageIndex) {
+                        final startIndex = pageIndex * 2;
+                        final endIndex = startIndex + 2 < featuredData.length ? startIndex + 2 : featuredData.length;
+                        final itemsPerPage = featuredData.sublist(startIndex, endIndex);
 
-                    //ALL ASSETS
-                    20.heightBox,
-                    StreamBuilder(
-                      stream: FirestorServices.allAssets(),
-                        builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot){
-                        if (!snapshot.hasData){
-                          return loadingIndicator();
-                        }else
-                        {
-                          var allassetsdata = snapshot.data!.docs;
-                          return      GridView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: allassetsdata.length,
-                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount:2,mainAxisExtent: 200 ,crossAxisSpacing: 8,mainAxisSpacing: 8),
-                              itemBuilder: ( context,  index){
-                                return Column(
+                        return SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: itemsPerPage.map((itemData) {
+                              return Container(
+                                width: MediaQuery.of(context).size.width /2.3 - 16, // Subtract margin from width
+                                margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Image.network("${allassetsdata[index]['imageURL'][0]}", width: 200, height: 120,fit: BoxFit.cover),
-                                    const  Spacer(),
-
-
+                                    Image.network(
+                                      itemData['imageURL'][0],
+                                      width: 145,
+                                      height: 110,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    10.heightBox,
                                     (() {
-                                      String shortenName = allassetsdata[index]['name'];
+                                      String shortenName = itemData['name'];
                                       if (shortenName.length > 15) {
                                         shortenName = shortenName.substring(0, 15) + '...';
                                       }
                                       return shortenName;
                                     })().text.fontFamily(semibold).color(darkFontGrey).make(),
-
                                     10.heightBox,
-
-                                    allassetsdata[index]['price']==0 ?
-                                    "Free".text.fontFamily(bold).color(Colors.green).size(16).make()
-                                        :
-                                    "\$ ${allassetsdata[index]['price']}".text.fontFamily(bold).color(Colors.green).size(16).make(),
+                                    itemData['price'] == 0
+                                        ? 'Free'.text.fontFamily(bold).color(Colors.green).size(16).make()
+                                        : '\$ ${itemData['price']}'.text.fontFamily(bold).color(Colors.green).size(16).make(),
                                   ],
-                                ).box.white.roundedSM
-                                    .margin(const EdgeInsets.symmetric(horizontal: 4)).padding(const EdgeInsets.all(12))
-                                    .make().onTap(() {
-                                      Get.to(()=>ItemDetails(
-                                          title:"${allassetsdata[index]['name']}",
-                                          data:allassetsdata[index]));
-                                });
-                              });
-                        }})
+                                ).box.white.roundedSM.padding(const EdgeInsets.all(8)).make().onTap(() {
+                                  Get.to(() => ItemDetails(title: '${itemData['name']}', data: itemData));
+                                }),
+                              );
+                            }).toList(),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
+            ),
+
+
+
+
+
+
+
+                        ],
+                      ),
+
+                    ),
+
+
+
+
+                    //ALL ASSETS
+                    30.heightBox,
+
+
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                          color: Colors.white38
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          8.heightBox,
+                          "All Assets ".text.black.fontFamily(bold).size(18).make(),
+                          15.heightBox,
+                          StreamBuilder(
+                            stream: FirestorServices.allAssets(),
+                              builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot){
+                              if (!snapshot.hasData){
+                                return loadingIndicator();
+                              }else
+                              {
+
+                                var allassetsdata = snapshot.data!.docs;
+                                return      GridView.builder(
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: allassetsdata.length,
+                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount:2,mainAxisExtent: 200 ,crossAxisSpacing: 8,mainAxisSpacing: 8),
+                                    itemBuilder: ( context,  index){
+                                      return Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Image.network("${allassetsdata[index]['imageURL'][0]}", width: 200, height: 120,fit: BoxFit.cover),
+                                          const  Spacer(),
+
+
+                                          (() {
+                                            String shortenName = allassetsdata[index]['name'];
+                                            if (shortenName.length > 15) {
+                                              shortenName = shortenName.substring(0, 15) + '...';
+                                            }
+                                            return shortenName;
+                                          })().text.fontFamily(semibold).color(darkFontGrey).make(),
+
+                                          10.heightBox,
+
+                                          allassetsdata[index]['price']==0 ?
+                                          "Free".text.fontFamily(bold).color(Colors.green).size(16).make()
+                                              :
+                                          "\$ ${allassetsdata[index]['price']}".text.fontFamily(bold).color(Colors.green).size(16).make(),
+                                        ],
+                                      ).box.white.roundedSM
+                                          .margin(const EdgeInsets.symmetric(horizontal: 4)).padding(const EdgeInsets.all(12))
+                                          .make().onTap(() {
+                                            Get.to(()=>ItemDetails(
+                                                title:"${allassetsdata[index]['name']}",
+                                                data:allassetsdata[index]));
+                                      });
+                                    });
+                              }}),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),

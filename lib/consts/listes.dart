@@ -20,14 +20,14 @@ const slidersList =[imgSlider1 ,imgSlider2 ,imgSlider3 ];
 
 
 // second sliders List
-const secondSlidersList =[imgSs1 ,imgSs2 ,imgSs3 , imgSs4];
+const secondSlidersList =[imgSs1 ,imgSs2 ,imgSs3 ];
 
 
-const featuredImages1=[imgS1 ,imgS2 ,imgS3 ];
-const featuredImages2 =[imgS4 ,imgS5,imgS6 ];
+const featuredImages1=[imgFc1 ,imgS2  ];
+const featuredImages2 =[imgS4 ,imgS5 ];
 
-const featuredTitles1 =[Pastry,Potions,Teacoffe] ;
-const featuredTitles2 =[FastFood,Cakes,junkFood] ;
+const featuredTitles1 =[troisD,dsMaxModels] ;
+const featuredTitles2 =[maya,OBJ] ;
 
 
 
@@ -40,7 +40,7 @@ irreels ,
   troisD
 ];
 const categoryImages =[
-  imgFc1,
+  imgFc111,
   imgFc2,
   imgFc3,
   imgFc4,
