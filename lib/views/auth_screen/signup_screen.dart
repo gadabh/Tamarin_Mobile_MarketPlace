@@ -51,10 +51,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       costumTextField( title:  password , hint: passwordHint , controller: passwordController , isPass: true ),
                       costumTextField( title:  retypePassword , hint: passwordHint , controller: passwordRetypeController , isPass: true),
 
-
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: TextButton(onPressed: (){}, child: forgetPass.text.make()))   ,
+20.heightBox,
 
 
                       Row(

@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mobile_v3/consts/consts.dart';
 import 'package:mobile_v3/views/auth_screen/login_screen.dart';
+import 'package:mobile_v3/widgets_common/appLogo_widget.dart';
 
 import '../home_screen/home.dart';
 
@@ -49,11 +50,11 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
              children: [
                300.heightBox,
-               appname.text.color(Colors.black).fontFamily(bold).size(22).make(),
+               "GraphiBee".text.color(Colors.black).fontFamily(bold).size(22).make(),
 
-               SizedBox(height: 300,width: 300,
-                 child:Lottie.asset('assets/b.json') ,
-               ),
+
+                 appLogoWidget(),
+
           //     appversion.text.make(),
                const Spacer(),
                credits.text.fontFamily(semibold).make(),

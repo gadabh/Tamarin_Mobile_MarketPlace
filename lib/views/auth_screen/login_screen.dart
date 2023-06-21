@@ -29,7 +29,7 @@ class LoginScreen extends StatelessWidget {
             Column(
               children: [
                 10.heightBox,
-                "Log in to $appname".text.fontFamily(bold).color(redColor).size(22).make(),
+                "Log in to GraphiBee".text.fontFamily(bold).color(redColor).size(22).make(),
                 60.heightBox,
                 Obx(()=>
                    Column(
@@ -83,21 +83,8 @@ class LoginScreen extends StatelessWidget {
 
                         }
                 ).box.width(context.screenWidth -50).make(),
-                40.heightBox,
-                loginWith.text.color(fontGrey).make(),
-                5.heightBox,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(3, (index) =>
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CircleAvatar(
-                    backgroundColor:lightGrey ,
-                    radius: 25,
-                    child: Image.asset(socialIconList[index],width:25 ,),
-                  ),
-                      )),
-                )  ],
+
+               ],
             ).box.white.rounded.padding(const EdgeInsets.all(16) ).width(context.screenWidth- 70).make()
 
           ],
