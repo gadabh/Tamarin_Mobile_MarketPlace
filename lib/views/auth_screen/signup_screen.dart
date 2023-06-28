@@ -42,7 +42,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 (context.screenHeight * 0.1).heightBox,
                 appLogoWidget(),
                 10.heightBox,
-                "Join the  $appname".text.fontFamily(bold).color(redColor).size(22).make(),
+                "Join the  GraphiBee".text.fontFamily(bold).color(redColor).size(22).make(),
                 15.heightBox,
                 Obx(()=>Column(
                     children: [

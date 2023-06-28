@@ -57,17 +57,9 @@ class EditProfileScreen extends StatelessWidget {
                   title: name ,
                   isPass:  false),
               10.heightBox,
-              costumTextField(
-                  controller: controller.oldpassController,
-                  hint: passwordHint ,
-                  title: oldpass ,
-                  isPass:  true),
-              10.heightBox,
-              costumTextField(
-                  controller: controller.newpassController,
-                  hint: passwordHint ,
-                  title: newpass ,
-                  isPass:  true),
+
+
+
               20.heightBox,
            controller.isLoading.value? const CircularProgressIndicator(
              valueColor: AlwaysStoppedAnimation(redColor),
@@ -86,31 +78,20 @@ class EditProfileScreen extends StatelessWidget {
                       }else{
                         controller.profilImageLink = data['photo'];
                     }
-                      // if old password match data base
-                      if(data['password']== controller.oldpassController.text){
 
-                       await controller.changeAuthPassword(
-                         email : data['email'],
-                         password: controller.oldpassController.text,
-                         newpassword: controller.newpassController.text ,
-                       );
 
                         await  controller.uploadProfileImage();
                         await controller.updateProfile(
                             imgUrl: controller.profilImageLink,
                             name: controller.nameController.text,
-                            password: controller.newpassController.text
+
                         );
                         VxToast.show(context, msg: "Updated");
-
-                      }else{
-                        VxToast.show(context, msg: "Wrong old password");
-                        controller.isLoading(false);
 
                       }
 
 
-                  },textColor:  whiteColor, title: "Save")),
+                  ,textColor:  whiteColor, title: "Save")),
 
 
             ],
