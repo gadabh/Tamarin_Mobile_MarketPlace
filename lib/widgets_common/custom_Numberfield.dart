@@ -6,7 +6,7 @@ Widget costumNumberField({String? title, required String? hint, controller, isPa
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      title!.text.color(redColor).fontFamily(semibold).size(16).make(),
+      title!.text.color(Colors.black).fontFamily(semibold).size(16).make(),
       5.heightBox,
       TextFormField(
         keyboardType: TextInputType.number, // Set the keyboard type to accept only numbers
@@ -23,7 +23,7 @@ Widget costumNumberField({String? title, required String? hint, controller, isPa
           filled: true,
           border: InputBorder.none,
           focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: redColor),
+            borderSide: BorderSide(color: textfieldGrey),
           ),
         ),
       ),

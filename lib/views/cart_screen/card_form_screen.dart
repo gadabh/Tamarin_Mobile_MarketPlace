@@ -61,10 +61,10 @@ class ShippingDetails extends StatelessWidget {
                           child: Container(
                               clipBehavior: Clip.antiAlias,
                               decoration: BoxDecoration(
-                                  color:  ccontroller.payementIndex.value ==index? redColor: Colors.transparent,
+                                  color:  ccontroller.payementIndex.value ==index? darkFontGrey: Colors.transparent,
                                   borderRadius: BorderRadius.circular(12),
                                   border: Border.all(
-                                    color: redColor,
+                                    color: darkFontGrey,
                                     width: 4,
                                   )
                               ),

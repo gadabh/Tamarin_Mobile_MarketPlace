@@ -264,7 +264,7 @@ class ItemDetails extends StatelessWidget {
                       createdAt: data['createdAt'],
                       desc: data['desc'],
                       editedBy: data['editedBy'],
-                      formats: data['formats'],
+
                       rating: data['rating'],
                       state: data['state'],
                       sub_category: data['sub_category'],

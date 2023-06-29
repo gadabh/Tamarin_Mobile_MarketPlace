@@ -36,7 +36,7 @@ class _OrdersDetailsState extends State<OrdersDetails> {
           children: [
             Column(
               children: [
-                const Image(image: AssetImage("assets/images/order-icon.png")),
+                const Image(image: AssetImage("assets/images/order-icon.png" ),height:100),
 
                 const Divider(),
 
@@ -58,20 +58,7 @@ class _OrdersDetailsState extends State<OrdersDetails> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                         "Adress".text.fontFamily(semibold).make(),
-                          "${widget.data["shippingAdress"][0]["country"]}".text.color(Colors.black45).make(),
 
-                          "${widget.data["shippingAdress"][0]["city"]}".text.color(Colors.black45).make(),
-                          "${widget.data["shippingAdress"][0]["state"]}".text.color(Colors.black45).make(),
-                          "${widget.data["shippingAdress"][0]["line1"]}".text.color(Colors.black45).make(),
-                          "${widget.data["shippingAdress"][0]["postal_code"]}".text.color(Colors.black45).make(),
-
-
-                        ],
-                      ),
                       SizedBox(
                         width: 130,
                         child: Column(
@@ -79,7 +66,7 @@ class _OrdersDetailsState extends State<OrdersDetails> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             "Total Amount".text.fontFamily(semibold).make(),
-                            "${widget.data["orderAmount"]}".text.color(Colors.black45).fontFamily(bold).make(),
+                            "${widget.data["orderAmount"]}  ".text.color(Colors.black45).fontFamily(bold).make(),
                           ],
                         ),
                       )
@@ -166,7 +153,7 @@ class _OrdersDetailsState extends State<OrdersDetails> {
              ).box.outerShadowMd.white.margin(const EdgeInsets.only(bottom: 4)).make(),
 
 
-            20.heightBox,
+
             orderPlaceDetails(
               d1:widget.data["orderAmount"] ,
               d2: "",

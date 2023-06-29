@@ -11,16 +11,21 @@ Widget senderBubble( DocumentSnapshot data){
   var time = intl.DateFormat("h:mma").format(t);
 
   return  Directionality(
-    textDirection:  data['uid']== currentUser!.uid ? TextDirection.rtl : TextDirection.ltr,
+    textDirection:  data['uid']== currentUser!.uid ? TextDirection.ltr : TextDirection.rtl,
     child: Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(8),
       decoration:  BoxDecoration(
           color: data['uid']== currentUser!.uid ? redColor: CupertinoColors.darkBackgroundGray,
-          borderRadius:  const BorderRadius.only(
+          borderRadius: data['uid']== currentUser!.uid ? const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
             bottomLeft: Radius.circular(20),
+
+          ) : const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+            bottomRight: Radius.circular(20),
 
           )
       ),
